@@ -92,16 +92,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         if (isValid) {
-            // Afficher le message de succès
-            let successMsg = document.querySelector('.success-message');
-            if (!successMsg) {
-                successMsg = document.createElement('div');
-                successMsg.className = 'success-message';
-                form.insertBefore(successMsg, form.firstChild);
-            }
-            successMsg.style.display = 'block';
-            successMsg.textContent = 'Formulaire envoyé avec succès !';
-
             // Send the data to the server
             form.submit();
         }
