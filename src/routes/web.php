@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FormController;
+use App\Http\Controllers\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,3 +21,4 @@ Route::get('/', function () {
 
 Route::get('/demande', [FormController::class, 'showForm']);
 Route::post('/demande', [FormController::class, 'submitForm']);
+Route::get('/admin/demandes', [AdminController::class, 'index']);
