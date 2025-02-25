@@ -138,7 +138,7 @@
         </div>
 
         <!-- Pagination Links -->
-        @if ($formData->total() >= 4)
+        @if ($formData->total() > 4)
         <div class="pagination">
             @if ($formData->onFirstPage())
             <button class="page-button" disabled style="cursor: not-allowed;">&lsaquo;</button>

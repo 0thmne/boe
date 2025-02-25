@@ -9,25 +9,24 @@ class CreateFormDataTable extends Migration
     public function up()
     {
         Schema::create('form_data', function (Blueprint $table) {
+            $table->id(); // Auto-incremented primary key
+            $table->string('uuid')->unique(); // Unique identifier from the form
             $table->string('nom');
             $table->string('prenom');
             $table->string('site');
-            $table->string('id');
             $table->string('status')->default('Nouveau')->nullable();
             $table->string('type');
-            $table->string('fichier')->nullable();
+            $table->text('fichier_client')->nullable(); // Use text type for storing JSON array of file paths
             $table->integer('nombreArticles')->nullable();
             $table->string('aocType')->nullable();
             $table->string('rechercheDoc')->nullable();
             $table->string('langue')->nullable();
             $table->string('nbeNom')->nullable();
-            $table->string('fichierNom')->nullable();
             $table->string('rechercheDocNom')->nullable();
             $table->string('langueNom')->nullable();
             $table->string('nbeNomTrait')->nullable();
             $table->string('metier')->nullable();
             $table->string('nombreLignes')->nullable();
-            $table->string('fichierNbe')->nullable();
             $table->string('metierNbe')->nullable();
             $table->string('secteur')->nullable();
             $table->string('nomProjet')->nullable();

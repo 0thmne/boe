@@ -32,7 +32,7 @@
                 </div>
                 <div class="form-group">
                     <label for="id" class="required">ID</label>
-                    <input type="text" id="id" name="id" placeholder="Entrez votre ID  " required>
+                    <input type="text" id="id" name="uuid" placeholder="Entrez votre ID  " required>
                 </div>
                 <div class="form-group full-width">
                     <label for="type" class="required">Type de Demande</label>
@@ -52,7 +52,7 @@
                 <div class="form-grid">
                     <div class="form-group full-width">
                         <label for="fichier-codif" class="required">Fichier Excel/ZIP</label>
-                        <input type="file" id="fichier-codif" name="fichier" accept=".xlsx,.xls,.zip">
+                        <input type="file" id="fichier-codif" name="fichier_codif" accept=".xlsx,.xls,.zip">
                     </div>
                     <div class="form-group">
                         <label for="nombre-articles" class="required">Nombre des articles à codifier</label>
@@ -86,8 +86,8 @@
             <div id="nomenclature" class="hidden">
                 <div class="form-grid">
                     <div class="form-group full-width">
-                        <label for="fichier-nom" class="required">Fichier Excel/ZIP/Word</label>
-                        <input type="file" id="fichier-nom" name="fichierNom" accept=".xlsx,.xls,.zip,.doc,.docx">
+                        <label for="fichier-nom" class="required">Fichier Excel/ZIP</label>
+                        <input type="file" id="fichier-nom" name="fichier_nom" accept=".xlsx,.xls,.zip,.doc,.docx">
                     </div>
                     <div class="form-group">
                         <label for="recherche-doc-nom">Recherche Document</label>
@@ -133,7 +133,7 @@
                 <div class="form-grid">
                     <div class="form-group full-width">
                         <label for="fichier-nbe" class="required">Fichier Excel/ZIP</label>
-                        <input type="file" id="fichier-nbe" name="fichierNbe" accept=".xlsx,.xls,.zip">
+                        <input type="file" id="fichier-nbe" name="fichier_nbe" accept=".xlsx,.xls,.zip">
                     </div>
                     <div class="form-group">
                         <label for="metier-nbe" class="required">Métier</label>

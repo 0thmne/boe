@@ -15,25 +15,22 @@ class FormController extends Controller
     public function submitForm(Request $request)
     {
         $validatedData = $request->validate([
+            'uuid' => 'required|string|unique:form_data,uuid', // Ensure 'uuid' is unique
             'nom' => 'required|string',
             'prenom' => 'required|string',
             'site' => 'required|string',
-            'id' => 'required|string',
             'status' => 'nullable|string|in:Nouveau,En Cours,Terminé',
             'type' => 'required|string',
-            'fichier' => 'nullable|file',
             'nombreArticles' => 'nullable|integer',
             'aocType' => 'nullable|string',
             'rechercheDoc' => 'nullable|string',
             'langue' => 'nullable|string',
             'nbeNom' => 'nullable|string',
-            'fichierNom' => 'nullable|file',
             'rechercheDocNom' => 'nullable|string',
             'langueNom' => 'nullable|string',
             'nbeNomTrait' => 'nullable|string',
             'metier' => 'nullable|string',
             'nombreLignes' => 'nullable|string',
-            'fichierNbe' => 'nullable|file',
             'metierNbe' => 'nullable|string',
             'secteur' => 'nullable|string',
             'nomProjet' => 'nullable|string',
@@ -42,18 +39,25 @@ class FormController extends Controller
             'fonctionElementaire' => 'nullable|string',
             'nombreLignesNbe' => 'nullable|string',
             'posteTechnique' => 'nullable|string',
+            'fichier_codif' => 'nullable|file',
+            'fichier_nom' => 'nullable|file',
+            'fichier_nbe' => 'nullable|file',
         ]);
 
         // Handle file uploads
-        if ($request->hasFile('fichier')) {
-            $validatedData['fichier'] = $request->file('fichier')->store('uploads', 'public');
+        $filePaths = [];
+        if ($request->hasFile('fichier_codif')) {
+            $filePaths[] = $request->file('fichier_codif')->store('uploads', 'public');
         }
-        if ($request->hasFile('fichierNom')) {
-            $validatedData['fichierNom'] = $request->file('fichierNom')->store('uploads', 'public');
+        if ($request->hasFile('fichier_nom')) {
+            $filePaths[] = $request->file('fichier_nom')->store('uploads', 'public');
         }
-        if ($request->hasFile('fichierNbe')) {
-            $validatedData['fichierNbe'] = $request->file('fichierNbe')->store('uploads', 'public');
+        if ($request->hasFile('fichier_nbe')) {
+            $filePaths[] = $request->file('fichier_nbe')->store('uploads', 'public');
         }
+
+        // Store file paths as a JSON array in the 'fichier_client' column
+        $validatedData['fichier_client'] = json_encode($filePaths);
 
         FormData::create($validatedData);
 
