@@ -39,14 +39,7 @@
                 <div class="info-grid">
                     <div class="info-section">
                         <h3>Request Information</h3>
-                        <div class="info-row">
-                            <div class="info-label">ID:</div>
-                            <div class="info-value">{{ $requestDetails->uuid }}</div>
-                        </div>
-                        <div class="info-row">
-                            <div class="info-label">Site:</div>
-                            <div class="info-value">{{ $requestDetails->site }}</div>
-                        </div>
+
                         <div class="info-row">
                             <div class="info-label">Type:</div>
                             <div class="info-value">
@@ -69,10 +62,12 @@
                             <div class="info-label">Creation Date:</div>
                             <div class="info-value">{{ $requestDetails->created_at->format('d/m/Y') }}</div>
                         </div>
+                        @if ($requestDetails->dateech)
                         <div class="info-row">
                             <div class="info-label">Deadline:</div>
-                            <div class="info-value"></div>
+                            <div class="info-value">{{ $requestDetails->dateech }}</div>
                         </div>
+                        @endif
                         <div class="info-row">
                             <div class="info-label">End Date:</div>
                             <div class="info-value">{{ $requestDetails->updated_at->format('d/m/Y') }}</div>
@@ -81,11 +76,124 @@
                             <div class="info-label">Status:</div>
                             <div class="info-value">{{ $requestDetails->status }}</div>
                         </div>
-
+                        @if ($requestDetails->numberArticles)
+                        <div class="info-row">
+                            <div class="info-label">Number of Articles:</div>
+                            <div class="info-value">{{ $requestDetails->numberArticles }}</div>
+                        </div>
+                        @endif
+                        @if ($requestDetails->aocType)
+                        <div class="info-row">
+                            <div class="info-label">AOC Type:</div>
+                            <div class="info-value">{{ $requestDetails->aocType }}</div>
+                        </div>
+                        @endif
+                        @if ($requestDetails->documentSearch)
+                        <div class="info-row">
+                            <div class="info-label">Document Search:</div>
+                            <div class="info-value">{{ $requestDetails->documentSearch }}</div>
+                        </div>
+                        @endif
+                        @if ($requestDetails->language)
+                        <div class="info-row">
+                            <div class="info-label">Language:</div>
+                            <div class="info-value">{{ $requestDetails->language }}</div>
+                        </div>
+                        @endif
+                        @if ($requestDetails->nbeName)
+                        <div class="info-row">
+                            <div class="info-label">NBE Name:</div>
+                            <div class="info-value">{{ $requestDetails->nbeName }}</div>
+                        </div>
+                        @endif
+                        @if ($requestDetails->documentSearchNom)
+                        <div class="info-row">
+                            <div class="info-label">Document Search Nom:</div>
+                            <div class="info-value">{{ $requestDetails->documentSearchNom }}</div>
+                        </div>
+                        @endif
+                        @if ($requestDetails->languageName)
+                        <div class="info-row">
+                            <div class="info-label">Language Name:</div>
+                            <div class="info-value">{{ $requestDetails->languageName }}</div>
+                        </div>
+                        @endif
+                        @if ($requestDetails->nbeNameTrait)
+                        <div class="info-row">
+                            <div class="info-label">NBE Name Trait:</div>
+                            <div class="info-value">{{ $requestDetails->nbeNameTrait }}</div>
+                        </div>
+                        @endif
+                        @if ($requestDetails->job)
+                        <div class="info-row">
+                            <div class="info-label">Job:</div>
+                            <div class="info-value">{{ $requestDetails->job }}</div>
+                        </div>
+                        @endif
+                        @if ($requestDetails->numberLines)
+                        <div class="info-row">
+                            <div class="info-label">Number of Lines:</div>
+                            <div class="info-value">{{ $requestDetails->numberLines }}</div>
+                        </div>
+                        @endif
+                        @if ($requestDetails->jobNbe)
+                        <div class="info-row">
+                            <div class="info-label">Job NBE:</div>
+                            <div class="info-value">{{ $requestDetails->jobNbe }}</div>
+                        </div>
+                        @endif
+                        @if ($requestDetails->sector)
+                        <div class="info-row">
+                            <div class="info-label">Sector:</div>
+                            <div class="info-value">{{ $requestDetails->sector }}</div>
+                        </div>
+                        @endif
+                        @if ($requestDetails->projectName)
+                        <div class="info-row">
+                            <div class="info-label">Project Name:</div>
+                            <div class="info-value">{{ $requestDetails->projectName }}</div>
+                        </div>
+                        @endif
+                        @if ($requestDetails->typeMillion)
+                        <div class="info-row">
+                            <div class="info-label">Type Million:</div>
+                            <div class="info-value">{{ $requestDetails->typeMillion }}</div>
+                        </div>
+                        @endif
+                        @if ($requestDetails->mainFunction)
+                        <div class="info-row">
+                            <div class="info-label">Main Function:</div>
+                            <div class="info-value">{{ $requestDetails->mainFunction }}</div>
+                        </div>
+                        @endif
+                        @if ($requestDetails->elementaryFunction)
+                        <div class="info-row">
+                            <div class="info-label">Elementary Function:</div>
+                            <div class="info-value">{{ $requestDetails->elementaryFunction }}</div>
+                        </div>
+                        @endif
+                        @if ($requestDetails->numberLinesNbe)
+                        <div class="info-row">
+                            <div class="info-label">Number of Lines NBE:</div>
+                            <div class="info-value">{{ $requestDetails->numberLinesNbe }}</div>
+                        </div>
+                        @endif
+                        @if ($requestDetails->technicalPost)
+                        <div class="info-row">
+                            <div class="info-label">Technical Post:</div>
+                            <div class="info-value">{{ $requestDetails->technicalPost }}</div>
+                        </div>
+                        @endif
                     </div>
 
                     <div class="info-section">
-                        <h3>Requester Information</h3>
+                        <h3>User Information</h3>
+
+                        <div class="info-row">
+                            <div class="info-label">ID:</div>
+                            <div class="info-value">{{ $requestDetails->id }}</div>
+                        </div>
+
 
                         <div class="info-row">
                             <div class="info-label">Last Name:</div>
@@ -95,6 +203,12 @@
                             <div class="info-label">First Name:</div>
                             <div class="info-value">{{ $requestDetails->name }}</div>
                         </div>
+
+                        <div class="info-row">
+                            <div class="info-label">Site:</div>
+                            <div class="info-value">{{ $requestDetails->site }}</div>
+                        </div>
+
                     </div>
                 </div>
 
