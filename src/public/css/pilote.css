@@ -273,10 +273,15 @@ body {
     border-radius: 4px;
     background: white;
     cursor: pointer;
+    text-decoration: none;
 }
 
 .page-button.active {
     background-color: var(--primary-color);
     color: white;
     border-color: var(--primary-color);
+}
+
+.page-button:not(.active):hover {
+    background-color: #f5f6f7;
 }

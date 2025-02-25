@@ -86,7 +86,7 @@
                 </div>
                 <div class="card-body">
                     <div class="request-details">
-                        <h3>Détails</h3>
+                        <h3>Demande</h3>
                         <div class="detail">
                             <span class="detail-icon">
                                 <i class="fas fa-tag"></i>
@@ -117,19 +117,18 @@
                     </div>
                 </div>
                 <div class="card-footer">
-                    <button class="action-btn">
-                        <i class="fas fa-eye"></i>
-                        Voir
+                    <button class="action-btn" >
+                        <i class="fas fa-eye"alt="Détails"></i>
                     </button>
                     @if ($demand->status == 'Nouveau' || $demand->status == 'En Cours')
                     <button class="action-btn">
-                        <i class="fas fa-edit"></i>
-                        Modifier
+                        <i class="fas fa-edit" alt="Modifier"></i>
+                        
                     </button>
                     @elseif ($demand->status == 'Terminé')
                     <button class="action-btn">
-                        <i class="fas fa-archive"></i>
-                        Livrai
+                        <i class="fas fa-archive" alt="Livrai"></i>
+                        
                     </button>
                     @endif
                 </div>
@@ -142,23 +141,23 @@
         @if ($formData->total() >= 4)
         <div class="pagination">
             @if ($formData->onFirstPage())
-                <button class="page-button" disabled>&lsaquo;</button>
+            <button class="page-button" disabled style="cursor: not-allowed;">&lsaquo;</button>
             @else
-                <a href="{{ $formData->previousPageUrl() }}" class="page-button">&lsaquo;</a>
+            <a href="{{ $formData->previousPageUrl() }}" class="page-button">&lsaquo;</a>
             @endif
 
             @foreach ($formData->getUrlRange(1, $formData->lastPage()) as $page => $url)
-                @if ($page == $formData->currentPage())
-                    <button class="page-button active">{{ $page }}</button>
-                @else
-                    <a href="{{ $url }}" class="page-button">{{ $page }}</a>
-                @endif
+            @if ($page == $formData->currentPage())
+                <button class="page-button active">{{ $page }}</button>
+            @else
+                <a href="{{ $url }}" class="page-button">{{ $page }}</a>
+            @endif
             @endforeach
 
             @if ($formData->hasMorePages())
-                <a href="{{ $formData->nextPageUrl() }}" class="page-button">&rsaquo;</a>
+            <a href="{{ $formData->nextPageUrl() }}" class="page-button">&rsaquo;</a>
             @else
-                <button class="page-button" disabled>&rsaquo;</button>
+            <button class="page-button" disabled style="cursor: not-allowed;">&rsaquo;</button>
             @endif
         </div>
         @endif
