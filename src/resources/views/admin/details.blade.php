@@ -12,7 +12,7 @@
 <body>
     <header class="header">
         <div class="logo">
-            <a href="{{ url('/demande') }}">
+            <a href="{{ url('/admin') }}">
                 <i class="fas fa-tasks"></i> Pilot
             </a>
         </div>
@@ -49,7 +49,21 @@
                         </div>
                         <div class="info-row">
                             <div class="info-label">Type:</div>
-                            <div class="info-value">{{ $requestDetails->type }}</div>
+                            <div class="info-value">
+                                @if ($requestDetails->type === 'codification')
+                                Codification
+                                @elseif ($requestDetails->type === 'processing')
+                                Nomenclature Processing
+                                @elseif ($requestDetails->type === 'loading')
+                                Nomenclature Loading
+                                @elseif ($requestDetails->type === 'fiches')
+                                Stamping Sheets
+                                @elseif ($requestDetails->type === 'nbe')
+                                Equipment Number
+                                @elseif ($requestDetails->type === 'documentation')
+                                Documentation Loading in Compass
+                                @endif
+                            </div>
                         </div>
                         <div class="info-row">
                             <div class="info-label">Creation Date:</div>
@@ -107,7 +121,7 @@
                 </div>
 
                 <div class="action-buttons">
-                    <a href="{{ url('/demande') }}" class="btn btn-secondary">
+                    <a href="{{ url('/admin') }}" class="btn btn-secondary">
                         <i class="fas fa-arrow-left"></i> Back
                     </a>
                 </div>

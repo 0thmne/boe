@@ -59,7 +59,7 @@
             <div class="filter-group">
                 <span class="filter-label">Status:</span>
                 <select id="statusFilter" class="filter-dropdown" onchange="handleFilterChange()">
-                    <option value="" {{ $selectedStatusFilter === '' ? 'selected' : '' }}>All Statuses</option>
+                    <option value="" {{ $selectedStatusFilter === '' ? 'selected' : '' }}>All Status</option>
                     <option value="New" {{ $selectedStatusFilter === 'New' ? 'selected' : '' }}>New</option>
                     <option value="In Progress" {{ $selectedStatusFilter === 'In Progress' ? 'selected' : '' }}>In Progress</option>
                     <option value="Completed" {{ $selectedStatusFilter === 'Completed' ? 'selected' : '' }}>Completed</option>
@@ -90,8 +90,21 @@
                         <div class="detail">
                             <span class="detail-icon">
                                 <i class="fas fa-tag"></i>
+                                
                             </span>
-                            {{ $demand->type }}
+                            @if ($demand->type === 'codification')
+                            Codification
+                            @elseif ($demand->type === 'processing')
+                            Nomenclature Processing
+                            @elseif ($demand->type === 'loading')
+                            Nomenclature Loading
+                            @elseif ($demand->type === 'fiches')
+                            Stamping Sheets
+                            @elseif ($demand->type === 'nbe')
+                            Equipment Number
+                            @elseif ($demand->type === 'documentation')
+                            Documentation Loading in Compass
+                            @endif
                         </div>
                         <div class="detail">
                             <span class="detail-icon">
@@ -120,8 +133,8 @@
                     <a href="{{ url('admin/demande/details/' . $demand->uuid) }}" class="action-btn">
                         <i class="fas fa-eye" alt="Details"></i>
                     </a>
-                    @if ($demand->status == 'New' || $demand->status == 'In Process')
-                    <a class="action-btn" href="/edit">
+                    @if ($demand->status == 'New' || $demand->status == 'In Progress')
+                    <a class="action-btn" href="{{ url('admin/demande/edit/' . $demand->uuid) }}">
                         <i class="fas fa-edit" alt="Edit"></i>
                     </a>
                     @elseif ($demand->status == 'Completed')
