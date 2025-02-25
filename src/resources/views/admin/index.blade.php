@@ -27,35 +27,35 @@
         <div class="stats-container">
             <div class="stat-card">
                 <h3>New</h3>
-                <div class="stat-value" style="color: var(--nouveau-color);">{{ $countNew }}</div>
+                <div class="stat-value" style="color: var(--new-color);">{{ $countNew }}</div>
             </div>
             <div class="stat-card">
                 <h3>In Progress</h3>
-                <div class="stat-value" style="color: var(--encours-color);">{{ $countProgress }}</div>
+                <div class="stat-value" style="color: var(--in-progress-color);">{{ $countProgress }}</div>
             </div>
             <div class="stat-card">
                 <h3>Completed</h3>
-                <div class="stat-value" style="color: var(--termine-color);">{{ $countCompleted }}</div>
+                <div class="stat-value" style="color: var(--completed-color);">{{ $countCompleted }}</div>
             </div>
         </div>
 
         <!-- Filter Section -->
         <div class="filter-section">
             <h2 class="filter-title">{{ $selectedStatusFilter ? 'Requests ' . $selectedStatusFilter : 'All Requests' }}</h2>
-            
+
             <div class="filter-group">
                 <span class="filter-label">Type:</span>
                 <select id="typeFilter" class="filter-dropdown" onchange="handleFilterChange()">
                     <option value="" {{ $selectedTypeFilter === '' ? 'selected' : '' }}>All Types</option>
                     <option value="codification" {{ $selectedTypeFilter === 'codification' ? 'selected' : '' }}>Codification</option>
-                    <option value="traitement" {{ $selectedTypeFilter === 'traitement' ? 'selected' : '' }}>Nomenclature Processing</option>
-                    <option value="chargement" {{ $selectedTypeFilter === 'chargement' ? 'selected' : '' }}>Nomenclature Loading</option>
+                    <option value="processing" {{ $selectedTypeFilter === 'processing' ? 'selected' : '' }}>Nomenclature Processing</option>
+                    <option value="loading" {{ $selectedTypeFilter === 'loading' ? 'selected' : '' }}>Nomenclature Loading</option>
                     <option value="fiches" {{ $selectedTypeFilter === 'fiches' ? 'selected' : '' }}>Stamping Sheets</option>
-                    <option value="nbe" {{ $selectedTypeFilter === 'nbe' ? 'selected' : '' }}>N BE</option>
+                    <option value="nbe" {{ $selectedTypeFilter === 'nbe' ? 'selected' : '' }}>Equipment Number</option>
                     <option value="documentation" {{ $selectedTypeFilter === 'documentation' ? 'selected' : '' }}>Documentation Loading in Compass</option>
                 </select>
             </div>
-            
+
             <div class="filter-group">
                 <span class="filter-label">Status:</span>
                 <select id="statusFilter" class="filter-dropdown" onchange="handleFilterChange()">
@@ -117,19 +117,17 @@
                     </div>
                 </div>
                 <div class="card-footer">
-                    <button class="action-btn" >
+                    <a href="{{ url('admin/demande/details/' . $demand->uuid) }}" class="action-btn">
                         <i class="fas fa-eye" alt="Details"></i>
-                    </button>
+                    </a>
                     @if ($demand->status == 'New' || $demand->status == 'In Process')
-                    <button class="action-btn">
+                    <a class="action-btn" href="/edit">
                         <i class="fas fa-edit" alt="Edit"></i>
-                        
-                    </button>
+                    </a>
                     @elseif ($demand->status == 'Completed')
-                    <button class="action-btn">
+                    <a class="action-btn">
                         <i class="fas fa-archive" alt="Archive"></i>
-                        
-                    </button>
+                    </a>
                     @endif
                 </div>
             </div>
@@ -148,9 +146,9 @@
 
             @foreach ($formData->getUrlRange(1, $formData->lastPage()) as $page => $url)
             @if ($page == $formData->currentPage())
-                <button class="page-button active">{{ $page }}</button>
+            <button class="page-button active">{{ $page }}</button>
             @else
-                <a href="{{ $url }}" class="page-button">{{ $page }}</a>
+            <a href="{{ $url }}" class="page-button">{{ $page }}</a>
             @endif
             @endforeach
 
@@ -168,14 +166,14 @@
     function handleFilterChange() {
         const typeFilter = document.getElementById('typeFilter').value;
         const statusFilter = document.getElementById('statusFilter').value;
-        
+
         let url = '?';
         if (typeFilter) url += `type=${encodeURIComponent(typeFilter)}`;
         if (statusFilter) {
             if (typeFilter) url += '&';
             url += `status=${encodeURIComponent(statusFilter)}`;
         }
-        
+
         window.location.href = url;
     }
 </script>

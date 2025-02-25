@@ -42,7 +42,7 @@
                         <option value="processing">Nomenclature Processing</option>
                         <option value="loading">Nomenclature Loading</option>
                         <option value="sheets">Stamping Sheets</option>
-                        <option value="nbe">N BE</option>
+                        <option value="nbe">Equipment Number</option>
                         <option value="documentation">Documentation Loading in Compass</option>
                     </select>
                 </div>

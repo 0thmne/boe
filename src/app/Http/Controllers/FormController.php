@@ -15,7 +15,7 @@ class FormController extends Controller
     public function submitForm(Request $request)
     {
         $validatedData = $request->validate([
-            'uuid' => 'required|string|unique:form_data,uuid', // Ensure 'uuid' is unique
+            'uuid' => 'required|string|unique:form_data,uuid',
             'name' => 'required|string',
             'surname' => 'required|string',
             'site' => 'required|string',
@@ -47,13 +47,13 @@ class FormController extends Controller
         // Handle file uploads
         $filePaths = [];
         if ($request->hasFile('file_codif')) {
-            $filePaths[] = $request->file('file_codif')->store('uploads', 'public');
+            $filePaths[] = $request->file('file_codif')->storeAs('uploads', $request->file('file_codif')->getClientOriginalName(), 'public');
         }
         if ($request->hasFile('file_nom')) {
-            $filePaths[] = $request->file('file_nom')->store('uploads', 'public');
+            $filePaths[] = $request->file('file_nom')->storeAs('uploads', $request->file('file_nom')->getClientOriginalName(), 'public');
         }
         if ($request->hasFile('file_nbe')) {
-            $filePaths[] = $request->file('file_nbe')->store('uploads', 'public');
+            $filePaths[] = $request->file('file_nbe')->storeAs('uploads', $request->file('file_nbe')->getClientOriginalName(), 'public');
         }
 
         // Store file paths as a JSON array in the 'file_client' column
@@ -62,5 +62,11 @@ class FormController extends Controller
         FormData::create($validatedData);
 
         return redirect()->back()->with('success', 'Form submitted successfully!');
+    }
+
+    public function showDetails($uuid)
+    {
+        $requestDetails = FormData::where('uuid', $uuid)->firstOrFail();
+        return view('admin.details', compact('requestDetails'));
     }
 }

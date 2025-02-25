@@ -11,11 +11,11 @@
     --info-color: #17a2b8;
 
     /* Statut colors */
-    --nouveau-color: #1976d2;
+    --new-color: #1976d2;
     /* Bleu */
-    --encours-color: #f57c00;
+    --in-progress-color: #f57c00;
     /* Orange */
-    --termine-color: #2e7d32;
+    --completed-color: #2e7d32;
     /* Vert */
 }
 
@@ -136,15 +136,15 @@ body {
 }
 
 .card-new {
-    border-left: 4px solid var(--nouveau-color);
+    border-left: 4px solid var(--new-color);
 }
 
-.card-progress {
-    border-left: 4px solid var(--encours-color);
+.card-in-progress {
+    border-left: 4px solid var(--in-progress-color);
 }
 
 .card-completed {
-    border-left: 4px solid var(--termine-color);
+    border-left: 4px solid var(--completed-color);
 }
 
 .card-header {
@@ -218,17 +218,17 @@ body {
 }
 
 .status-new {
-    background-color: var(--nouveau-color);
+    background-color: var(--new-color);
     color: white;
 }
 
-.status-en-cours {
-    background-color: var(--encours-color);
+.status-in-progress {
+    background-color: var(--in-progress-color);
     color: white;
 }
 
 .status-completed {
-    background-color: var(--termine-color);
+    background-color: var(--completed-color);
     color: white;
 }
 
@@ -241,6 +241,7 @@ body {
 }
 
 .action-btn {
+    text-decoration: none;
     background: none;
     border: none;
     cursor: pointer;
