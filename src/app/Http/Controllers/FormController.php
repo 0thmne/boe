@@ -19,6 +19,7 @@ class FormController extends Controller
             'prenom' => 'required|string',
             'site' => 'required|string',
             'id' => 'required|string',
+            'status' => 'nullable|string|in:Nouveau,En Cours,Terminé',
             'type' => 'required|string',
             'fichier' => 'nullable|file',
             'nombreArticles' => 'nullable|integer',

@@ -13,6 +13,7 @@ class CreateFormDataTable extends Migration
             $table->string('prenom');
             $table->string('site');
             $table->string('id');
+            $table->string('status')->default('Nouveau')->nullable();
             $table->string('type');
             $table->string('fichier')->nullable();
             $table->integer('nombreArticles')->nullable();

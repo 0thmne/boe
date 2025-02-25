@@ -16,6 +16,7 @@ class FormData extends Model
         'prenom',
         'site',
         'id',
+        'status',
         'type',
         'fichier',
         'nombreArticles',

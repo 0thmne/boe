@@ -22,3 +22,4 @@ Route::get('/', function () {
 Route::get('/demande', [FormController::class, 'showForm']);
 Route::post('/demande', [FormController::class, 'submitForm']);
 Route::get('/admin/demandes', [AdminController::class, 'index']);
+Route::get('/admin', [AdminController::class, 'index']);
