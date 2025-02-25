@@ -217,7 +217,7 @@ body {
     font-weight: 500;
 }
 
-.status-nouveau {
+.status-new {
     background-color: var(--nouveau-color);
     color: white;
 }
@@ -227,7 +227,7 @@ body {
     color: white;
 }
 
-.status-terminé {
+.status-completed {
     background-color: var(--termine-color);
     color: white;
 }

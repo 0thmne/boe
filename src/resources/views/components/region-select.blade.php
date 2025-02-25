@@ -1,4 +1,4 @@
-<select id="langue-nom" name="langueNom" required>
+<select id="langue-nom" name="language" required>
     <option value="3N">🇬🇧 Anglais SG</option>
     <option value="A7">🇦🇺 Australien</option>
     <option value="AF">🇿🇦 Afrikaans</option>

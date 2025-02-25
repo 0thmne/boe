@@ -16,48 +16,48 @@ class FormController extends Controller
     {
         $validatedData = $request->validate([
             'uuid' => 'required|string|unique:form_data,uuid', // Ensure 'uuid' is unique
-            'nom' => 'required|string',
-            'prenom' => 'required|string',
+            'name' => 'required|string',
+            'surname' => 'required|string',
             'site' => 'required|string',
-            'status' => 'nullable|string|in:Nouveau,En Cours,Terminé',
+            'status' => 'nullable|string|in:New,In Progress,Completed',
             'type' => 'required|string',
-            'nombreArticles' => 'nullable|integer',
+            'numberArticles' => 'nullable|integer',
             'aocType' => 'nullable|string',
-            'rechercheDoc' => 'nullable|string',
-            'langue' => 'nullable|string',
-            'nbeNom' => 'nullable|string',
-            'rechercheDocNom' => 'nullable|string',
-            'langueNom' => 'nullable|string',
-            'nbeNomTrait' => 'nullable|string',
-            'metier' => 'nullable|string',
-            'nombreLignes' => 'nullable|string',
-            'metierNbe' => 'nullable|string',
-            'secteur' => 'nullable|string',
-            'nomProjet' => 'nullable|string',
+            'documentSearch' => 'nullable|string',
+            'language' => 'nullable|string',
+            'nbeName' => 'nullable|string',
+            'documentSearchNom' => 'nullable|string',
+            'languageName' => 'nullable|string',
+            'nbeNameTrait' => 'nullable|string',
+            'job' => 'nullable|string',
+            'numberLines' => 'nullable|string',
+            'jobNbe' => 'nullable|string',
+            'sector' => 'nullable|string',
+            'projectName' => 'nullable|string',
             'typeMillion' => 'nullable|string',
-            'fonctionPrincipale' => 'nullable|string',
-            'fonctionElementaire' => 'nullable|string',
-            'nombreLignesNbe' => 'nullable|string',
-            'posteTechnique' => 'nullable|string',
-            'fichier_codif' => 'nullable|file',
-            'fichier_nom' => 'nullable|file',
-            'fichier_nbe' => 'nullable|file',
+            'mainFunction' => 'nullable|string',
+            'elementaryFunction' => 'nullable|string',
+            'numberLinesNbe' => 'nullable|string',
+            'technicalPost' => 'nullable|string',
+            'file_codif' => 'nullable|file',
+            'file_nom' => 'nullable|file',
+            'file_nbe' => 'nullable|file',
         ]);
 
         // Handle file uploads
         $filePaths = [];
-        if ($request->hasFile('fichier_codif')) {
-            $filePaths[] = $request->file('fichier_codif')->store('uploads', 'public');
+        if ($request->hasFile('file_codif')) {
+            $filePaths[] = $request->file('file_codif')->store('uploads', 'public');
         }
-        if ($request->hasFile('fichier_nom')) {
-            $filePaths[] = $request->file('fichier_nom')->store('uploads', 'public');
+        if ($request->hasFile('file_nom')) {
+            $filePaths[] = $request->file('file_nom')->store('uploads', 'public');
         }
-        if ($request->hasFile('fichier_nbe')) {
-            $filePaths[] = $request->file('fichier_nbe')->store('uploads', 'public');
+        if ($request->hasFile('file_nbe')) {
+            $filePaths[] = $request->file('file_nbe')->store('uploads', 'public');
         }
 
-        // Store file paths as a JSON array in the 'fichier_client' column
-        $validatedData['fichier_client'] = json_encode($filePaths);
+        // Store file paths as a JSON array in the 'file_client' column
+        $validatedData['file_client'] = json_encode($filePaths);
 
         FormData::create($validatedData);
 

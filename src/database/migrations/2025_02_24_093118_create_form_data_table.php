@@ -9,32 +9,32 @@ class CreateFormDataTable extends Migration
     public function up()
     {
         Schema::create('form_data', function (Blueprint $table) {
-            $table->id(); // Auto-incremented primary key
-            $table->string('uuid')->unique(); // Unique identifier from the form
-            $table->string('nom');
-            $table->string('prenom');
+            $table->id(); 
+            $table->string('uuid')->unique(); 
+            $table->string('name');
+            $table->string('surname');
             $table->string('site');
-            $table->string('status')->default('Nouveau')->nullable();
+            $table->string('status')->default('New')->nullable();
             $table->string('type');
-            $table->text('fichier_client')->nullable(); // Use text type for storing JSON array of file paths
-            $table->integer('nombreArticles')->nullable();
+            $table->text('file_client')->nullable(); 
+            $table->integer('numberArticles')->nullable();
             $table->string('aocType')->nullable();
-            $table->string('rechercheDoc')->nullable();
-            $table->string('langue')->nullable();
-            $table->string('nbeNom')->nullable();
-            $table->string('rechercheDocNom')->nullable();
-            $table->string('langueNom')->nullable();
-            $table->string('nbeNomTrait')->nullable();
-            $table->string('metier')->nullable();
-            $table->string('nombreLignes')->nullable();
-            $table->string('metierNbe')->nullable();
-            $table->string('secteur')->nullable();
-            $table->string('nomProjet')->nullable();
+            $table->string('documentSearch')->nullable();
+            $table->string('language')->nullable();
+            $table->string('nbeName')->nullable();
+            $table->string('documentSearchNom')->nullable();
+            $table->string('languageName')->nullable();
+            $table->string('nbeNameTrait')->nullable();
+            $table->string('job')->nullable();
+            $table->string('numberLines')->nullable();
+            $table->string('jobNbe')->nullable();
+            $table->string('sector')->nullable();
+            $table->string('projectName')->nullable();
             $table->string('typeMillion')->nullable();
-            $table->string('fonctionPrincipale')->nullable();
-            $table->string('fonctionElementaire')->nullable();
-            $table->string('nombreLignesNbe')->nullable();
-            $table->string('posteTechnique')->nullable();
+            $table->string('mainFunction')->nullable();
+            $table->string('elementaryFunction')->nullable();
+            $table->string('numberLinesNbe')->nullable();
+            $table->string('technicalPost')->nullable();
             $table->timestamps();
         });
     }

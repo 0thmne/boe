@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interface Pilote - Stellantis</title>
+    <title>Pilot Interface </title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/pilote.css') }}">
 </head>
@@ -12,7 +12,7 @@
 <body>
     <header class="header">
         <div class="logo">
-            <i class="fas fa-tasks"></i> Stellantis Pilote
+            <i class="fas fa-tasks"></i> Pilot
         </div>
         <div class="user-profile">
             <div class="user-avatar">
@@ -26,43 +26,43 @@
         <!-- Status -->
         <div class="stats-container">
             <div class="stat-card">
-                <h3>Nouveau</h3>
+                <h3>New</h3>
                 <div class="stat-value" style="color: var(--nouveau-color);">{{ $countNew }}</div>
             </div>
             <div class="stat-card">
-                <h3>En Cours</h3>
+                <h3>In Progress</h3>
                 <div class="stat-value" style="color: var(--encours-color);">{{ $countProgress }}</div>
             </div>
             <div class="stat-card">
-                <h3>Terminé</h3>
+                <h3>Completed</h3>
                 <div class="stat-value" style="color: var(--termine-color);">{{ $countCompleted }}</div>
             </div>
         </div>
 
         <!-- Filter Section -->
         <div class="filter-section">
-            <h2 class="filter-title">{{ $selectedStatusFilter ? 'Demandes ' . $selectedStatusFilter : 'Tous les Demandes' }}</h2>
+            <h2 class="filter-title">{{ $selectedStatusFilter ? 'Requests ' . $selectedStatusFilter : 'All Requests' }}</h2>
             
             <div class="filter-group">
                 <span class="filter-label">Type:</span>
                 <select id="typeFilter" class="filter-dropdown" onchange="handleFilterChange()">
-                    <option value="" {{ $selectedTypeFilter === '' ? 'selected' : '' }}>Tous les Types</option>
+                    <option value="" {{ $selectedTypeFilter === '' ? 'selected' : '' }}>All Types</option>
                     <option value="codification" {{ $selectedTypeFilter === 'codification' ? 'selected' : '' }}>Codification</option>
-                    <option value="traitement" {{ $selectedTypeFilter === 'traitement' ? 'selected' : '' }}>Traitement Nomenclature</option>
-                    <option value="chargement" {{ $selectedTypeFilter === 'chargement' ? 'selected' : '' }}>Chargement Nomenclature</option>
-                    <option value="fiches" {{ $selectedTypeFilter === 'fiches' ? 'selected' : '' }}>Fiches D'emboutissage</option>
+                    <option value="traitement" {{ $selectedTypeFilter === 'traitement' ? 'selected' : '' }}>Nomenclature Processing</option>
+                    <option value="chargement" {{ $selectedTypeFilter === 'chargement' ? 'selected' : '' }}>Nomenclature Loading</option>
+                    <option value="fiches" {{ $selectedTypeFilter === 'fiches' ? 'selected' : '' }}>Stamping Sheets</option>
                     <option value="nbe" {{ $selectedTypeFilter === 'nbe' ? 'selected' : '' }}>N BE</option>
-                    <option value="documentation" {{ $selectedTypeFilter === 'documentation' ? 'selected' : '' }}>Chargement Documentation Dans Compas</option>
+                    <option value="documentation" {{ $selectedTypeFilter === 'documentation' ? 'selected' : '' }}>Documentation Loading in Compass</option>
                 </select>
             </div>
             
             <div class="filter-group">
-                <span class="filter-label">Statut:</span>
+                <span class="filter-label">Status:</span>
                 <select id="statusFilter" class="filter-dropdown" onchange="handleFilterChange()">
-                    <option value="" {{ $selectedStatusFilter === '' ? 'selected' : '' }}>Tous les Statuts</option>
-                    <option value="Nouveau" {{ $selectedStatusFilter === 'Nouveau' ? 'selected' : '' }}>Nouveau</option>
-                    <option value="En cours" {{ $selectedStatusFilter === 'En cours' ? 'selected' : '' }}>En cours</option>
-                    <option value="Terminé" {{ $selectedStatusFilter === 'Terminé' ? 'selected' : '' }}>Terminé</option>
+                    <option value="" {{ $selectedStatusFilter === '' ? 'selected' : '' }}>All Statuses</option>
+                    <option value="New" {{ $selectedStatusFilter === 'New' ? 'selected' : '' }}>New</option>
+                    <option value="In Progress" {{ $selectedStatusFilter === 'In Progress' ? 'selected' : '' }}>In Progress</option>
+                    <option value="Completed" {{ $selectedStatusFilter === 'Completed' ? 'selected' : '' }}>Completed</option>
                 </select>
             </div>
         </div>
@@ -79,14 +79,14 @@
                             <i class="fas fa-user"></i>
                         </div>
                         <div>
-                            <div class="personne-name">{{ $demand->nom }} {{ $demand->prenom }}</div>
+                            <div class="personne-name">{{ $demand->name }} {{ $demand->surname }}</div>
                             <div class="request-id">#{{ $demand->id }}</div>
                         </div>
                     </div>
                 </div>
                 <div class="card-body">
                     <div class="request-details">
-                        <h3>Demande</h3>
+                        <h3>Request</h3>
                         <div class="detail">
                             <span class="detail-icon">
                                 <i class="fas fa-tag"></i>
@@ -97,37 +97,37 @@
                             <span class="detail-icon">
                                 <i class="fas fa-calendar"></i>
                             </span>
-                            Créé le: {{ $demand->created_at->format('d/m/Y') }}
+                            Created on: {{ $demand->created_at->format('d/m/Y') }}
                         </div>
-                        @if ($demand->status === 'Terminé')
+                        @if ($demand->status === 'Completed')
                         <div class="detail">
                             <span class="detail-icon">
                                 <i class="fas fa-check"></i>
                             </span>
-                            Complété le: {{ $demand->updated_at->format('d/m/Y') }}
+                            Completed on: {{ $demand->updated_at->format('d/m/Y') }}
                         </div>
                         @else
                         <div class="detail">
                             <span class="detail-icon">
                                 <i class="fas fa-clock"></i>
                             </span>
-                            Échéance: {{ $demand->dateech }}
+                            Deadline: {{ $demand->dateech }}
                         </div>
                         @endif
                     </div>
                 </div>
                 <div class="card-footer">
                     <button class="action-btn" >
-                        <i class="fas fa-eye"alt="Détails"></i>
+                        <i class="fas fa-eye" alt="Details"></i>
                     </button>
-                    @if ($demand->status == 'Nouveau' || $demand->status == 'En Cours')
+                    @if ($demand->status == 'New' || $demand->status == 'In Process')
                     <button class="action-btn">
-                        <i class="fas fa-edit" alt="Modifier"></i>
+                        <i class="fas fa-edit" alt="Edit"></i>
                         
                     </button>
-                    @elseif ($demand->status == 'Terminé')
+                    @elseif ($demand->status == 'Completed')
                     <button class="action-btn">
-                        <i class="fas fa-archive" alt="Livrai"></i>
+                        <i class="fas fa-archive" alt="Archive"></i>
                         
                     </button>
                     @endif

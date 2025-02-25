@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stellantis - Requests</title>
+    <title>Home - Requests</title>
     <style>
         body {
             margin: 0;
@@ -196,17 +196,17 @@
     <div class="header">
         <a href="#" id="id1"><span>RE</span><br>quests</a>
         <div class="logo">
-            <img src="{{ asset('images/logo.png') }}" alt="Stellantis Logo">
+            <img src="{{ asset('images/loo.png') }}" alt="Logo">
         </div>
     </div>
 
     <div class="main-content">
         <div class="title">
-            <h2>Créez votre demande</h2>
+            <h2>Create your request</h2>
         </div>
 
         <div class="buttons-container">
-            <a href="./demande" class="request-button">Ici</a>
+            <a href="./demande" class="request-button">Here</a>
         </div>
     </div>
 </body>

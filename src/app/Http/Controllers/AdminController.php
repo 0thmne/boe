@@ -27,9 +27,9 @@ class AdminController extends Controller
         $formData = $formDataQuery->paginate(8);
 
         // Count by status
-        $countNew = FormData::where('status', 'Nouveau')->count();
-        $countProgress = FormData::where('status', 'En cours')->count();
-        $countCompleted = FormData::where('status', 'Terminé')->count();
+        $countNew = FormData::where('status', 'New')->count();
+        $countProgress = FormData::where('status', 'In Progress')->count();
+        $countCompleted = FormData::where('status', 'Completed')->count();
 
         // Pass the data and filters to the view
         return view('admin.index', [
