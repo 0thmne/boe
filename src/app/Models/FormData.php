@@ -12,13 +12,12 @@ class FormData extends Model
     protected $table = 'form_data';
 
     protected $fillable = [
+        'uuid',
         'name',
         'surname',
         'site',
-        'uuid',
         'status',
         'type',
-        'file_client', 
         'numberArticles',
         'aocType',
         'documentSearch',
@@ -37,5 +36,22 @@ class FormData extends Model
         'elementaryFunction',
         'numberLinesNbe',
         'technicalPost',
+        'file_client',
+        'assigned_to',
+        'due_date',
+        'description',
+        'comments',
     ];
+
+    protected $dates = [
+        'created_at',
+        'updated_at',
+        'due_date',
+        'dateech'
+    ];
+
+    public function assignedTo()
+    {
+        return $this->belongsTo(User::class, 'assigned_to');
+    }
 }

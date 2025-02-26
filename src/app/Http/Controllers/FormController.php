@@ -69,9 +69,9 @@ class FormController extends Controller
             'name' => $validatedData['name'],
             'surname' => $validatedData['surname'],
             'site' => $validatedData['site'],
-            'email' => $validatedData['surname'] . '@example.com', // Assuming email is generated from uuid
-            'password' => bcrypt('password'), // Assuming a default password
-            'role' => 'client', // Set default role to client
+            'email' => $validatedData['surname'] . '@client.com', 
+            'password' => bcrypt('password'), 
+            'role' => 'client', 
         ]);
 
         return redirect()->back()->with('success', 'Form submitted successfully!');

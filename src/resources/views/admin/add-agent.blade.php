@@ -5,24 +5,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Add Agent</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Noto+Color+Emoji&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
 
 <body>
-    <header class="header">
-        <div class="logo">
-            <a href="{{ url('/admin') }}">
-                <i class="fas fa-tasks"></i> Pilot
-            </a>
-        </div>
-        <div class="user-profile">
-            <div class="user-avatar">
-                <i class="fas fa-user"></i>
-            </div>
-            <span>Admin</span>
-        </div>
-    </header>
+    @include('components.header-admin')
 
     <div class="container">
 

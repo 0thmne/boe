@@ -10,17 +10,8 @@
 </head>
 
 <body>
-    <header class="header">
-        <div class="logo">
-            <i class="fas fa-tasks"></i> Pilot
-        </div>
-        <div class="user-profile">
-            <div class="user-avatar">
-                <i class="fas fa-user"></i>
-            </div>
-            <span>Admin</span>
-        </div>
-    </header>
+
+    @include('components.header-admin')
 
     <div class="container">
         <!-- Status -->
@@ -79,7 +70,7 @@
                             <i class="fas fa-user"></i>
                         </div>
                         <div>
-                            <div class="personne-name">{{ $demand->name }} {{ $demand->surname }}</div>
+                            <div class="personne-name">{{ $demand->surname }} {{ $demand->name }}</div>
                             <div class="request-id">#{{ $demand->id }}</div>
                         </div>
                     </div>
@@ -117,14 +108,14 @@
                             <span class="detail-icon">
                                 <i class="fas fa-check"></i>
                             </span>
-                            Completed on: {{ $demand->updated_at->format('d/m/Y') }}
+                            Completed on: {{ $demand->due_date->format('d/m/Y') }}
                         </div>
                         @else
                         <div class="detail">
                             <span class="detail-icon">
                                 <i class="fas fa-clock"></i>
                             </span>
-                            Deadline: {{ $demand->dateech }}
+                            Deadline: {{ $demand->due_date ? $demand->created_at->diffInDays($demand->due_date) : 'Not set' }} days
                         </div>
                         @endif
                     </div>

@@ -59,7 +59,7 @@ class AdminController extends Controller
         ]);
 
         User::create([
-            'uuid' => '', // Set uuid to an empty string
+            'uuid' => (string) Str::uuid(), // Generate a unique UUID
             'name' => $validatedData['name'],
             'surname' => $validatedData['surname'],
             'site' => '', // Keep site empty
@@ -69,5 +69,35 @@ class AdminController extends Controller
         ]);
 
         return redirect()->back()->with('success', 'Agent added successfully!');
+    }
+
+    public function showEditForm($uuid)
+    {
+        $requestDetails = FormData::where('uuid', $uuid)->firstOrFail();
+        $agents = User::where('role', 'agent')->get();
+
+        return view('admin.edit', compact('requestDetails', 'agents'));
+    }
+
+    public function updateRequest(Request $request, $uuid)
+    {
+        $validatedData = $request->validate([
+            'assigned_to' => 'nullable|exists:users,id',
+            'due_date' => 'nullable|date',
+            'description' => 'nullable|string',
+            'comments' => 'nullable|string',
+            'status' => 'required|string|in:New,In Progress,Completed',
+        ]);
+
+        $requestDetails = FormData::where('uuid', $uuid)->firstOrFail();
+        $requestDetails->update([
+            'assigned_to' => $validatedData['assigned_to'] ?? $requestDetails->assigned_to,
+            'due_date' => $validatedData['due_date'] ?? $requestDetails->due_date,
+            'description' => $validatedData['description'] ?? $requestDetails->description,
+            'comments' => $validatedData['comments'] ?? $requestDetails->comments,
+            'status' => $validatedData['status'],
+        ]);
+
+        return redirect()->route('admin.index')->with('success', 'Request updated successfully!');
     }
 }

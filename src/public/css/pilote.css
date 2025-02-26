@@ -44,11 +44,19 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 10px;
 }
 
 .logo {
     font-size: 1.5rem;
     font-weight: bold;
+    color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.logo i {
     color: var(--primary-color);
 }
 
@@ -67,6 +75,11 @@ body {
     align-items: center;
     justify-content: center;
     color: white;
+}
+
+.user-profile span {
+    font-weight: 600;
+    color: var(--text-color);
 }
 
 /* Dashboard Stats */

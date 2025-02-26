@@ -1,0 +1,349 @@
+:root {
+    --primary-color: #243782;
+    --secondary-color: #1d2d6f;
+    --background-color: #f5f7fa;
+    --border-color: #e1e4e8;
+    --text-color: #24292e;
+    --hover-color: #f6f8fa;
+    --success-color: #28a745;
+    --warning-color: #ffd700;
+    --danger-color: #dc3545;
+    --info-color: #17a2b8;
+
+    /* Status colors */
+    --new-color: #1976d2;
+    /* Blue */
+    --inprogress-color: #f57c00;
+    /* Orange */
+    --completed-color: #2e7d32;
+    /* Green */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+.container {
+    padding: 20px;
+}
+
+/* Header Styles */
+.header {
+    background-color: white;
+    padding: 1rem 2rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+/* Form Card */
+.form-card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    margin: 2rem auto;
+    max-width: 800px;
+}
+
+.form-header {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.form-header-id {
+    font-size: 0.9rem;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 0.3rem 0.6rem;
+    border-radius: 4px;
+}
+
+.form-body {
+    padding: 2rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group:last-child {
+    margin-bottom: 0;
+}
+
+.form-label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #333;
+}
+
+.form-control {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(36, 55, 130, 0.2);
+}
+
+.form-control:disabled {
+    background-color: #f5f5f5;
+    cursor: not-allowed;
+}
+
+.form-row {
+    display: flex;
+    flex-wrap: wrap;
+    margin: -0.5rem;
+}
+
+.form-col {
+    flex: 1;
+    padding: 0.5rem;
+    min-width: 250px;
+}
+
+.form-footer {
+    background-color: #f9fafb;
+    padding: 1.5rem;
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+}
+
+.btn {
+    padding: 0.75rem 1.5rem;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: var(--secondary-color);
+}
+
+.btn-secondary {
+    background-color: white;
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+}
+
+.btn-secondary:hover {
+    background-color: var(--hover-color);
+}
+
+.form-status {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+}
+
+.status-new {
+    background-color: #e3f2fd;
+    color: var(--new-color);
+}
+
+.status-progress {
+    background-color: #fff3e0;
+    color: var(--inprogress-color);
+}
+
+.status-completed {
+    background-color: #e8f5e9;
+    color: var(--completed-color);
+}
+
+.breadcrumb {
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+}
+
+.breadcrumb a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.breadcrumb a:hover {
+    text-decoration: underline;
+}
+
+.breadcrumb-separator {
+    margin: 0 0.5rem;
+    color: #ccc;
+}
+
+.demand-details {
+    background-color: var(--hover-color);
+    border-radius: 4px;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.demand-detail {
+    display: flex;
+    margin-bottom: 0.5rem;
+}
+
+.demand-detail-label {
+    font-weight: 600;
+    min-width: 120px;
+}
+
+/* Status change buttons */
+.status-change {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.status-btn {
+    flex: 1;
+    padding: 0.75rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background-color: white;
+    cursor: pointer;
+    text-align: center;
+    font-weight: 600;
+}
+
+.status-btn-new {
+    color: var(--new-color);
+    border-color: var(--new-color);
+}
+
+.status-btn-new.active {
+    background-color: var(--new-color);
+    color: white;
+}
+
+.status-btn-progress {
+    color: var(--inprogress-color);
+    border-color: var(--inprogress-color);
+}
+
+.status-btn-progress.active {
+    background-color: var(--inprogress-color);
+    color: white;
+}
+
+.status-btn-completed {
+    color: var(--completed-color);
+    border-color: var(--completed-color);
+}
+
+.status-btn-completed.active {
+    background-color: var(--completed-color);
+    color: white;
+}
+
+/* File upload zone styling */
+.file-upload-zone {
+    border: 2px dashed var(--border-color);
+    border-radius: 4px;
+    padding: 2rem;
+    text-align: center;
+    cursor: pointer;
+    margin-bottom: 1.5rem;
+    transition: all 0.2s;
+}
+
+.file-upload-zone:hover {
+    border-color: var(--primary-color);
+    background-color: rgba(36, 55, 130, 0.05);
+}
+
+.file-upload-zone p {
+    margin-bottom: 1rem;
+}
+
+.file-upload-icon {
+    font-size: 2rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.file-list {
+    margin-top: 1rem;
+}
+
+.file-item {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+}
+
+.file-info {
+    flex: 1;
+}
+
+.file-name {
+    font-weight: 600;
+}
+
+.file-size {
+    font-size: 0.8rem;
+    color: #666;
+}
+
+.file-remove {
+    color: var(--danger-color);
+    cursor: pointer;
+    padding: 0.5rem;
+}
