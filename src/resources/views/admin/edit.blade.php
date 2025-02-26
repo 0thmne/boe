@@ -1,131 +1,339 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Request - Pilot</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('css/edit.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+
 </head>
+
 <body>
-    <header class="header">
-        <div class="logo">
-            <a href="{{ url('/admin') }}">
-                <i class="fas fa-tasks"></i> Pilot
-            </a>
-        </div>
-        <div class="user-profile">
-            <div class="user-avatar">
-                <i class="fas fa-user"></i>
-            </div>
-            <span>Admin</span>
-        </div>
-    </header>
+    @include('components.header-admin')
 
     <div class="container">
-        
-        <div class="form-card">
-            <div class="form-header">
-                <h2>Edit Request</h2>
-                <span class="form-header-id">{{ $requestDetails->uuid }}</span>
-            </div>
-            <div class="form-body">
-                <span class="form-status status-{{ strtolower(str_replace(' ', '-', $requestDetails->status)) }}">{{ $requestDetails->status }}</span>
+        <a href="{{ url('admin/') }}" class="back-button">
+            <i class="fas fa-arrow-left"></i> Back to list
+        </a>
 
-                <div class="demand-details">
-                    <div class="demand-detail">
-                        <span class="demand-detail-label">Assigned to</span>
-                        <span>{{ $requestDetails->assigned_to ? $requestDetails->assignedTo->surname . ' ' . $requestDetails->assignedTo->name : 'Not assigned' }}</span>
-                    </div>
-                    <div class="demand-detail">
-                        <span class="demand-detail-label">Type</span>
-                        <span>{{ $requestDetails->type }}</span>
-                    </div>
-                    <div class="demand-detail">
-                        <span class="demand-detail-label">Creation Date:</span>
-                        <span>{{ \Carbon\Carbon::parse($requestDetails->created_at)->format('d/m/Y') }}</span>
-                    </div>
-                </div>
+        <form action="{{ route('edit.update', $requestDetails->uuid) }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            @method('PUT')
+            <h2>Edit Request</h2>
 
-                <div class="status-change">
-                    <button class="status-btn status-btn-new {{ $requestDetails->status == 'New' ? 'active' : '' }}">New</button>
-                    <button class="status-btn status-btn-progress {{ $requestDetails->status == 'In Progress' ? 'active' : '' }}">In Progress</button>
-                    <button class="status-btn status-btn-completed {{ $requestDetails->status == 'Completed' ? 'active' : '' }}">Completed</button>
-                </div>
+            <div class="form-grid">
+                <!-- Request Information -->
+                <div class="form-section full-width">
+                    <h3>Request Information</h3>
 
-                <form id="editForm" action="{{ route('edit.update', $requestDetails->uuid) }}" method="POST">
-                    @csrf
-                    <input type="hidden" name="status" id="status" value="{{ $requestDetails->status }}">
                     <div class="form-row">
-                        <div class="form-col">
-                            <div class="form-group">
-                                <label class="form-label" for="assignedTo">Assigned to</label>
-                                <select class="form-control" id="assignedTo" name="assigned_to">
-                                    @if(!$requestDetails->assigned_to)
-                                        <option value="">Select an agent</option>
-                                    @endif
-                                    @foreach ($agents as $agent)
-                                        <option value="{{ $agent->id }}" {{ $requestDetails->assigned_to == $agent->id ? 'selected' : '' }}>{{ $agent->surname }} {{ $agent->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
+                        <div class="form-group">
+                            <label>Type</label>
+                            <input type="text" value="{{ $requestDetails->type }}" readonly disabled>
                         </div>
-                        <div class="form-col">
-                            <div class="form-group">
-                                <label class="form-label" for="dueDate">Due date</label>
-                                <input type="date" class="form-control" id="dueDate" name="due_date" value="{{ $requestDetails->due_date ? \Carbon\Carbon::parse($requestDetails->due_date)->format('Y-m-d') : '' }}">
-                            </div>
+
+                        <div class="form-group">
+                            <label>Creation Date</label>
+                            <input type="text" value="{{ $requestDetails->created_at->format('d/m/Y') }}" readonly disabled>
+                        </div>
+                    </div>
+
+                    @if ($requestDetails->numberArticles || $requestDetails->aocType)
+                    <div class="form-row">
+                        @if ($requestDetails->numberArticles)
+                        <div class="form-group">
+                            <label>Number of Articles</label>
+                            <input type="text" value="{{ $requestDetails->numberArticles }}" readonly disabled>
+                        </div>
+                        @endif
+
+                        @if ($requestDetails->aocType)
+                        <div class="form-group">
+                            <label>AOC Type</label>
+                            <input type="text" value="{{ $requestDetails->aocType }}" readonly disabled>
+                        </div>
+                        @endif
+                    </div>
+                    @endif
+
+                    @if ($requestDetails->documentSearch || $requestDetails->language)
+                    <div class="form-row">
+                        @if ($requestDetails->documentSearch)
+                        <div class="form-group">
+                            <label>Document Search</label>
+                            <input type="text" value="{{ $requestDetails->documentSearch }}" readonly disabled>
+                        </div>
+                        @endif
+
+                        @if ($requestDetails->language)
+                        <div class="form-group">
+                            <label>Language</label>
+                            @php
+                                $languageMap = [
+                                    '3N' => 'Anglais',
+                                    'A7' => 'Australien',
+                                    'AF' => 'Afrikaans',
+                                    'AR' => 'Arabe',
+                                    'BG' => 'Bulgare',
+                                    'CA' => 'Catalan',
+                                    'CS' => 'Tchéque',
+                                    'DA' => 'Danois',
+                                    'DE' => 'Allemand',
+                                    'EL' => 'Grec',
+                                    'EN' => 'Anglais',
+                                    'ES' => 'Espagnol',
+                                    'ET' => 'Estonien',
+                                    'FI' => 'Finnois',
+                                    'FR' => 'Francais',
+                                    'HE' => 'Hébreu',
+                                    'HI' => 'Hindi',
+                                    'HR' => 'Croate',
+                                    'HU' => 'Hongrois',
+                                    'ID' => 'Indonésien',
+                                    'IS' => 'Islandais',
+                                    'IT' => 'Italien',
+                                    'JA' => 'Japonais',
+                                    'KK' => 'Kazakh',
+                                    'KO' => 'Coréen',
+                                    'LT' => 'Lituanien',
+                                    'LV' => 'Letton',
+                                    'MS' => 'Malais',
+                                    'NL' => 'Néerlandais',
+                                    'NO' => 'Norvégien',
+                                    'PL' => 'Polonais',
+                                    'RO' => 'Roumain',
+                                    'RU' => 'Russe',
+                                    'SH' => 'Serbe (latin)',
+                                    'SK' => 'Slovaque',
+                                    'SL' => 'Slovène',
+                                    'SR' => 'Serbe',
+                                    'SV' => 'Suédois',
+                                    'TH' => 'Thai',
+                                    'TR' => 'Turc',
+                                    'UK' => 'Ukrainien',
+                                    'VI' => 'Vietnamien',
+                                    'Z1' => 'Réserve client',
+                                    'ZF' => 'Chinois trad.',
+                                    'ZH' => 'Chinois',
+                                ];
+                            @endphp
+                            <input type="text" value="{{ $languageMap[$requestDetails->language] ?? $requestDetails->language }}" readonly disabled>
+                        </div>
+                        @endif
+                    </div>
+                    @endif
+
+                    @if ($requestDetails->nbeName)
+                    <div class="form-group">
+                        <label>NBE Name</label>
+                        <input type="text" value="{{ $requestDetails->nbeName }}" readonly disabled>
+                    </div>
+                    @endif
+
+                    @if ($requestDetails->documentSearchNom)
+                    <div class="form-group">
+                        <label>Document Search Nom</label>
+                        <input type="text" value="{{ $requestDetails->documentSearchNom }}" readonly disabled>
+                    </div>
+                    @endif
+
+                    @if ($requestDetails->languageName)
+                    <div class="form-group">
+                        <label>Language Name</label>
+                        <input type="text" value="{{ $requestDetails->languageName }}" readonly disabled>
+                    </div>
+                    @endif
+
+                    @if ($requestDetails->nbeNameTrait)
+                    <div class="form-group">
+                        <label>NBE Name Trait</label>
+                        <input type="text" value="{{ $requestDetails->nbeNameTrait }}" readonly disabled>
+                    </div>
+                    @endif
+
+                    @if ($requestDetails->job)
+                    <div class="form-group">
+                        <label>Job</label>
+                        <input type="text" value="{{ $requestDetails->job }}" readonly disabled>
+                    </div>
+                    @endif
+
+                    @if ($requestDetails->numberLines)
+                    <div class="form-group">
+                        <label>Number of Lines</label>
+                        <input type="text" value="{{ $requestDetails->numberLines }}" readonly disabled>
+                    </div>
+                    @endif
+
+                    @if ($requestDetails->jobNbe)
+                    <div class="form-group">
+                        <label>Job NBE</label>
+                        <input type="text" value="{{ $requestDetails->jobNbe }}" readonly disabled>
+                    </div>
+                    @endif
+
+                    @if ($requestDetails->sector)
+                    <div class="form-group">
+                        <label>Sector</label>
+                        <input type="text" value="{{ $requestDetails->sector }}" readonly disabled>
+                    </div>
+                    @endif
+
+                    @if ($requestDetails->projectName)
+                    <div class="form-group">
+                        <label>Project Name</label>
+                        <input type="text" value="{{ $requestDetails->projectName }}" readonly disabled>
+                    </div>
+                    @endif
+
+                    @if ($requestDetails->typeMillion)
+                    <div class="form-group">
+                        <label>Type Million</label>
+                        <input type="text" value="{{ $requestDetails->typeMillion }}" readonly disabled>
+                    </div>
+                    @endif
+
+                    @if ($requestDetails->mainFunction)
+                    <div class="form-group">
+                        <label>Main Function</label>
+                        <input type="text" value="{{ $requestDetails->mainFunction }}" readonly disabled>
+                    </div>
+                    @endif
+
+                    @if ($requestDetails->elementaryFunction)
+                    <div class="form-group">
+                        <label>Elementary Function</label>
+                        <input type="text" value="{{ $requestDetails->elementaryFunction }}" readonly disabled>
+                    </div>
+                    @endif
+
+                    @if ($requestDetails->numberLinesNbe)
+                    <div class="form-group">
+                        <label>Number of Lines NBE</label>
+                        <input type="text" value="{{ $requestDetails->numberLinesNbe }}" readonly disabled>
+                    </div>
+                    @endif
+
+                    @if ($requestDetails->technicalPost)
+                    <div class="form-group">
+                        <label>Technical Post</label>
+                        <input type="text" value="{{ $requestDetails->technicalPost }}" readonly disabled>
+                    </div>
+                    @endif
+                </div>
+
+                <!-- Editable Fields -->
+                <div class="form-section full-width">
+                    <h3>Management Information</h3>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="assigned_to">Assigned to</label>
+                            <select name="assigned_to" id="assigned_to">
+                                <option value="">Select Agent</option>
+                                @foreach($agents as $agent)
+                                <option value="{{ $agent->id }}" {{ $requestDetails->assigned_to == $agent->id ? 'selected' : '' }}>
+                                    {{ $agent->surname }} {{ $agent->name }}
+                                </option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="status">Status</label>
+                            <select name="status" id="status" class="status-select" required onchange="updateStatusStyle(this)">
+                                <option value="New" {{ $requestDetails->status == 'New' ? 'selected' : '' }}>New</option>
+                                <option value="In Progress" {{ $requestDetails->status == 'In Progress' ? 'selected' : '' }}>In Progress</option>
+                                <option value="Completed" {{ $requestDetails->status == 'Completed' ? 'selected' : '' }}>Completed</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="due_date">Due Date</label>
+                            <input type="date" id="due_date" name="due_date" value="{{ $requestDetails->due_date ? $requestDetails->due_date->format('Y-m-d') : '' }}">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label" for="description">Request description</label>
-                        <textarea class="form-control" id="description" name="description" rows="3">{{ $requestDetails->description }}</textarea>
+                        <label for="description">Request Description</label>
+                        <textarea id="description" name="description" rows="4">{{ $requestDetails->description }}</textarea>
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label" for="comments">Comments</label>
-                        <textarea class="form-control" id="comments" name="comments" rows="3" placeholder="Add comments or notes about the request...">{{ $requestDetails->comments }}</textarea>
+                        <label for="comments">Comments</label>
+                        <textarea id="comments" name="comments" rows="4">{{ $requestDetails->comments }}</textarea>
                     </div>
 
-                    <div class="form-footer">
-                        <button type="button" class="btn btn-secondary" onclick="window.history.back();">Cancel</button>
-                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                    <!-- Add File Section -->
+                    @if($requestDetails->file_client && json_decode($requestDetails->file_client, true))
+                    <div class="form-section full-width">
+                        <h3>Files Management</h3>
+                        <div class="form-grid">
+                            <div class="form-group full-width">
+                                <div class="files-management-container">
+
+                                    <div class="current-files-section">
+                                        <label>Current Files</label>
+                                        <div class="file-list">
+                                            @foreach (json_decode($requestDetails->file_client, true) as $file)
+                                            <div class="file-item">
+                                                <div class="file-info">
+                                                    <i class="fas fa-file"></i>
+                                                    <span class="file-name">{{ basename($file) }}</span>
+                                                </div>
+                                                <a href="{{ asset('storage/' . $file) }}" class="download-btn" download="{{ basename($file) }}">
+                                                    <i class="fas fa-download"></i>
+                                                </a>
+                                            </div>
+                                            @endforeach
+                                        </div>
+                                    </div>
+
+
+                                    <div class="new-files-section">
+                                        <label for="new_files">New Files</label>
+                                        <input type="file"
+                                            id="new_files"
+                                            name="new_files[]"
+                                            multiple
+                                            accept=".xlsx,.xls,.zip,.doc,.docx"
+                                            class="custom-file-input">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </form>
+                </div>
             </div>
-        </div>
+
+            @endif
+
+            <div class="button-wrapper">
+                <button type="submit" class="submit-button">Update Request</button>
+            </div>
+        </form>
     </div>
 
     <script>
-        // Handle status change buttons
-        const statusButtons = document.querySelectorAll('.status-btn');
-        statusButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                // Remove active class from all buttons
-                statusButtons.forEach(btn => btn.classList.remove('active'));
-                // Add active class to clicked button
-                this.classList.add('active');
-                
-                // Update status input value
-                document.getElementById('status').value = this.textContent.trim();
-                
-                // Update status display
-                const formStatus = document.querySelector('.form-status');
-                formStatus.className = 'form-status';
-                
-                if (this.classList.contains('status-btn-new')) {
-                    formStatus.classList.add('status-new');
-                    formStatus.textContent = 'New';
-                } else if (this.classList.contains('status-btn-progress')) {
-                    formStatus.classList.add('status-progress');
-                    formStatus.textContent = 'In Progress';
-                } else if (this.classList.contains('status-btn-completed')) {
-                    formStatus.classList.add('status-completed');
-                    formStatus.textContent = 'Completed';
-                }
-            });
+        function updateStatusStyle(select) {
+            // Remove all existing status classes
+            select.classList.remove('status-New', 'status-In-Progress', 'status-Completed');
+
+            // Add the appropriate class based on selection
+            let statusClass = 'status-' + select.value.replace(' ', '-');
+            select.classList.add(statusClass);
+        }
+
+        // Initialize status style on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            let statusSelect = document.getElementById('status');
+            updateStatusStyle(statusSelect);
         });
     </script>
 </body>
+
 </html>

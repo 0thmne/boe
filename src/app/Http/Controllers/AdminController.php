@@ -87,9 +87,59 @@ class AdminController extends Controller
             'description' => 'nullable|string',
             'comments' => 'nullable|string',
             'status' => 'required|string|in:New,In Progress,Completed',
+            'new_files.*' => 'nullable|file|mimes:xlsx,xls,zip,doc,docx',
         ]);
 
         $requestDetails = FormData::where('uuid', $uuid)->firstOrFail();
+        
+        // Handle file uploads
+        if ($request->hasFile('new_files')) {
+            $uploadedFiles = [];
+            
+            // If there are existing files, get them
+            $existingFiles = [];
+            if ($requestDetails->file_client) {
+                $existingFiles = json_decode($requestDetails->file_client, true) ?? [];
+            }
+
+            // Process each new file
+            foreach ($request->file('new_files') as $file) {
+                $originalName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+                $extension = $file->getClientOriginalExtension();
+                
+                // Check for existing files with the same name
+                $version = 1;
+                $newFileName = $originalName;
+                
+                // Get all existing filenames for comparison
+                $existingFileNames = array_map(function($path) {
+                    return pathinfo($path, PATHINFO_FILENAME);
+                }, $existingFiles);
+
+                // Add version number if file exists
+                while (in_array($newFileName, $existingFileNames)) {
+                    $version++;
+                    $newFileName = $originalName . "-v" . $version;
+                }
+
+                // Store the file with the new name
+                $path = $file->storeAs(
+                    'uploads',
+                    $newFileName . '.' . $extension,
+                    'public'
+                );
+                
+                $uploadedFiles[] = $path;
+            }
+
+            // Combine existing and new files
+            $allFiles = array_merge($existingFiles, $uploadedFiles);
+
+            // Update the file_client field with all files
+            $requestDetails->file_client = json_encode($allFiles);
+        }
+
+        // Update other fields
         $requestDetails->update([
             'assigned_to' => $validatedData['assigned_to'] ?? $requestDetails->assigned_to,
             'due_date' => $validatedData['due_date'] ?? $requestDetails->due_date,
@@ -97,6 +147,8 @@ class AdminController extends Controller
             'comments' => $validatedData['comments'] ?? $requestDetails->comments,
             'status' => $validatedData['status'],
         ]);
+
+        $requestDetails->save();
 
         return redirect()->route('admin.index')->with('success', 'Request updated successfully!');
     }

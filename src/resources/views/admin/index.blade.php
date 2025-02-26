@@ -89,7 +89,7 @@
                             Nomenclature Processing
                             @elseif ($demand->type === 'loading')
                             Nomenclature Loading
-                            @elseif ($demand->type === 'fiches')
+                            @elseif ($demand->type === 'sheets')
                             Stamping Sheets
                             @elseif ($demand->type === 'nbe')
                             Equipment Number

@@ -23,13 +23,14 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
 }
 
 body {
     background-color: var(--background-color);
     color: var(--text-color);
     line-height: 1.6;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
 }
 
 .container {
@@ -346,4 +347,40 @@ body {
     color: var(--danger-color);
     cursor: pointer;
     padding: 0.5rem;
+}
+
+/* Add specific styling for inputs that contain flags */
+input[readonly][disabled] {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+    font-size: 14px;
+    line-height: 1.4;
+    padding: 8px 12px;
+}
+
+/* Add specific styles for emoji display */
+.emoji {
+    font-family: "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+    font-size: 16px;
+}
+
+.language-display {
+    background-color: #f5f5f5;
+    padding: 8px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 14px;
+    line-height: 1.4;
+    color: var(--text-color);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.language-name {
+    font-weight: normal;
+}
+
+.flag-icon {
+    width: 1.2em;
+    height: 1.2em;
 }

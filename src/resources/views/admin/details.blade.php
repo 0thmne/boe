@@ -65,12 +65,12 @@
                         @if ($requestDetails->dateech)
                         <div class="info-row">
                             <div class="info-label">Deadline:</div>
-                            <div class="info-value">{{ $requestDetails->dateech }}</div>
+                            <div class="info-value">{{ $requestDetails->due_date }}</div>
                         </div>
                         @endif
                         <div class="info-row">
                             <div class="info-label">End Date:</div>
-                            <div class="info-value">{{ $requestDetails->updated_at->format('d/m/Y') }}</div>
+                            <div class="info-value">{{ $requestDetails->due_date->format('d/m/Y') }}</div>
                         </div>
                         <div class="info-row">
                             <div class="info-label">Status:</div>

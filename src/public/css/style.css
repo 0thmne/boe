@@ -23,6 +23,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Nunito', 'Noto Color Emoji', sans-serif;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 }
 
@@ -93,8 +94,15 @@ h2::after {
     margin-bottom: 10px;
 }
 
-.form-group {
+.form-row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
     margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 0;
 }
 
 .form-group.full-width {
@@ -164,6 +172,11 @@ select:focus {
     form {
         padding: 20px;
     }
+
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
 }
 
 .form-group select {
@@ -213,4 +226,285 @@ select:focus {
 .user-profile span {
     font-weight: 600;
     color: var(--text-color);
+}
+
+.form-section {
+    margin-bottom: 2rem;
+}
+
+.form-section h3 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--border-color);
+}
+
+textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 14px;
+    resize: vertical;
+    min-height: 100px;
+    font-family: inherit;
+}
+
+textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 5px rgba(36, 55, 130, 0.2);
+}
+
+input[readonly],
+input[disabled] {
+    background-color: var(--background-color);
+    cursor: not-allowed;
+}
+
+.form-section.full-width {
+    grid-column: 1 / -1;
+}
+
+/* Add these styles for status badges */
+.status-badge {
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    text-align: center;
+    width: 100%;
+}
+
+.status-new {
+    background-color: var(--new-color);
+    color: white;
+}
+
+.status-in-progress {
+    background-color: var(--in-progress-color);
+    color: white;
+}
+
+.status-completed {
+    background-color: var(--completed-color);
+    color: white;
+}
+
+.status-select {
+    padding: 8px 12px;
+    border-radius: 4px;
+    border: 1px solid var(--border-color);
+    font-weight: 500;
+    width: 100%;
+}
+
+.status-New {
+    color: var(--new-color);
+    border-color: var(--new-color);
+}
+
+.status-In-Progress {
+    color: var(--in-progress-color);
+    border-color: var(--in-progress-color);
+}
+
+.status-Completed {
+    color: var(--completed-color);
+    border-color: var(--completed-color);
+}
+
+.file-download-section {
+    margin-top: 20px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    padding: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.file-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    min-width: 200px;
+    flex: 0 1 calc(33.333% - 15px); /* This makes 3 items per row with gap */
+}
+
+.file-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+}
+
+.file-icon {
+    color: var(--text-color);
+    min-width: 20px;
+}
+
+.file-name {
+    font-size: 0.9em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.download-btn {
+    color: var(--primary-color);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.download-btn:hover ,.new-files-section input{
+    color: var(--secondary-color);
+    opacity: 0.5;
+}
+
+.download-btn i {
+    color: var(--primary-color);
+}
+
+.download-btn:hover i {
+    color: var(--secondary-color);
+}
+
+
+.files-container {
+    display: flex;
+    gap: 30px;
+    margin-top: 20px;
+}
+
+.current-files {
+    flex: 2;
+}
+
+.new-files {
+    flex: 1;
+    padding: 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    align-self: flex-start;
+}
+
+.current-files h4,
+.new-files h4 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 1.1em;
+    color: var(--text-color);
+}
+
+.file-download-section {
+    margin-top: 0;
+}
+
+.files-management-container {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.current-files-section,
+.new-files-section {
+    flex: 1;
+    padding: 15px;
+    background: #f8f9fa;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+}
+
+.file-list {
+    margin-top: 10px;
+}
+
+.file-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px;
+    margin-bottom: 5px;
+    background: white;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+}
+
+.file-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.file-name {
+    font-size: 14px;
+}
+
+input[type="file"] {
+    width: 100%;
+    padding: 12px;
+    background: white;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 14px;
+    transition: opacity 0.3s ease;
+}
+
+input[type="file"]:hover {
+    opacity: 0.7;
+}
+
+input[type="file"]::-webkit-file-upload-button {
+    background: var(--primary-color);
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    margin-right: 10px;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+}
+
+input[type="file"]::-webkit-file-upload-button:hover {
+    opacity: 0.7;
+}
+
+/* Custom file input button text */
+.custom-file-input::file-selector-button {
+    content: "Choose Files";
+    background: var(--primary-color);
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    margin-right: 10px;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+}
+
+.custom-file-input:hover::file-selector-button {
+    opacity: 0.7;
+}
+
+/* For Webkit browsers (Chrome, Safari) */
+.custom-file-input::-webkit-file-upload-button {
+    content: "Choose Files";
+    background: var(--primary-color);
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    margin-right: 10px;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+}
+
+.custom-file-input:hover::-webkit-file-upload-button {
+    opacity: 0.7;
 }

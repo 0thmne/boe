@@ -27,4 +27,4 @@ Route::get('/admin', [AdminController::class, 'index']);
 Route::get('admin/add-agent', [AdminController::class, 'showAddAgentForm'])->name('add-agent.form');
 Route::post('admin/add-agent', [AdminController::class, 'storeAgent'])->name('add-agent.store');
 Route::get('admin/demande/edit/{uuid}', [AdminController::class, 'showEditForm'])->name('edit.form');
-Route::post('admin/demande/edit/{uuid}', [AdminController::class, 'updateRequest'])->name('edit.update');
+Route::put('admin/demande/edit/{uuid}', [AdminController::class, 'updateRequest'])->name('edit.update');
