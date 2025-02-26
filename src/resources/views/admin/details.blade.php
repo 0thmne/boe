@@ -97,7 +97,58 @@
                         @if ($requestDetails->language)
                         <div class="info-row">
                             <div class="info-label">Language:</div>
-                            <div class="info-value">{{ $requestDetails->language }}</div>
+                            <div class="info-value">
+                                 @php
+                                $languageMap = [
+                                    '3N' => 'English',
+                                    'A7' => 'Australian',
+                                    'AF' => 'Afrikaans',
+                                    'AR' => 'Arabic',
+                                    'BG' => 'Bulgarian',
+                                    'CA' => 'Catalan',
+                                    'CS' => 'Czech',
+                                    'DA' => 'Danish',
+                                    'DE' => 'German',
+                                    'EL' => 'Greek',
+                                    'EN' => 'English',
+                                    'ES' => 'Spanish',
+                                    'ET' => 'Estonian',
+                                    'FI' => 'Finnish',
+                                    'FR' => 'French',
+                                    'HE' => 'Hebrew',
+                                    'HI' => 'Hindi',
+                                    'HR' => 'Croatian',
+                                    'HU' => 'Hungarian',
+                                    'ID' => 'Indonesian',
+                                    'IS' => 'Icelandic',
+                                    'IT' => 'Italian',
+                                    'JA' => 'Japanese',
+                                    'KK' => 'Kazakh',
+                                    'KO' => 'Korean',
+                                    'LT' => 'Lithuanian',
+                                    'LV' => 'Latvian',
+                                    'MS' => 'Malay',
+                                    'NL' => 'Dutch',
+                                    'NO' => 'Norwegian',
+                                    'PL' => 'Polish',
+                                    'RO' => 'Romanian',
+                                    'RU' => 'Russian',
+                                    'SH' => 'Serbian (Latin)',
+                                    'SK' => 'Slovak',
+                                    'SL' => 'Slovenian',
+                                    'SR' => 'Serbian',
+                                    'SV' => 'Swedish',
+                                    'TH' => 'Thai',
+                                    'TR' => 'Turkish',
+                                    'UK' => 'Ukrainian',
+                                    'VI' => 'Vietnamese',
+                                    'Z1' => 'Client Reserve',
+                                    'ZF' => 'Traditional Chinese',
+                                    'ZH' => 'Chinese',
+                                ];
+                            @endphp
+                            {{ $languageMap[$requestDetails->language] ?? $requestDetails->language }}
+                            </div>
                         </div>
                         @endif
                         @if ($requestDetails->nbeName)

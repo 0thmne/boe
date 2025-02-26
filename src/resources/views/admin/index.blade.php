@@ -255,60 +255,6 @@
     }
 </script>
 
-<style>
-    .modal {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0,0,0,0.5);
-        justify-content: center;
-        align-items: center;
-        z-index: 1000;
-    }
 
-    .modal-content {
-        background-color: white;
-        padding: 20px;
-        border-radius: 8px;
-        width: 400px;
-        max-width: 90%;
-    }
-
-    .modal-buttons {
-        display: flex;
-        justify-content: flex-end;
-        gap: 10px;
-        margin-top: 20px;
-    }
-
-    .delete-btn {
-        background-color: var(--danger-color);
-        color: white;
-        border: none;
-        padding: 8px 16px;
-        border-radius: 4px;
-        cursor: pointer;
-    }
-
-    .cancel-btn {
-        background-color: #6c757d;
-        color: white;
-        border: none;
-        padding: 8px 16px;
-        border-radius: 4px;
-        cursor: pointer;
-    }
-
-    .delete-btn:hover {
-        opacity: 0.9;
-    }
-
-    .cancel-btn:hover {
-        opacity: 0.9;
-    }
-</style>
 
 </html>
