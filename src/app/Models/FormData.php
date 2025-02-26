@@ -50,7 +50,7 @@ class FormData extends Model
         'dateech'
     ];
 
-    public function assignedTo()
+    public function assignedAgent()
     {
         return $this->belongsTo(User::class, 'assigned_to');
     }

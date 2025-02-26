@@ -28,3 +28,4 @@ Route::get('admin/add-agent', [AdminController::class, 'showAddAgentForm'])->nam
 Route::post('admin/add-agent', [AdminController::class, 'storeAgent'])->name('add-agent.store');
 Route::get('admin/demande/edit/{uuid}', [AdminController::class, 'showEditForm'])->name('edit.form');
 Route::put('admin/demande/edit/{uuid}', [AdminController::class, 'updateRequest'])->name('edit.update');
+Route::delete('admin/demande/delete/{uuid}', [AdminController::class, 'deleteRequest'])->name('admin.delete');

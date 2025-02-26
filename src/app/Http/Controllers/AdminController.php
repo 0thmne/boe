@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\FormData;
 use App\Models\User;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class AdminController extends Controller
 {
@@ -15,8 +16,8 @@ class AdminController extends Controller
         $selectedTypeFilter = $request->input('type', '');
         $selectedStatusFilter = $request->input('status', '');
 
-        // Fetch all form data with pagination
-        $formDataQuery = FormData::query();
+        // Fetch all form data with pagination and eager load the assignedAgent relationship
+        $formDataQuery = FormData::query()->with('assignedAgent');
 
         // Apply filters if they are set
         if ($selectedTypeFilter) {
@@ -148,8 +149,24 @@ class AdminController extends Controller
             'status' => $validatedData['status'],
         ]);
 
-        $requestDetails->save();
-
         return redirect()->route('admin.index')->with('success', 'Request updated successfully!');
+    }
+
+    public function deleteRequest($uuid)
+    {
+        $request = FormData::where('uuid', $uuid)->firstOrFail();
+        
+        // Delete associated files from storage if they exist
+        if ($request->file_client) {
+            $files = json_decode($request->file_client, true);
+            foreach ($files as $file) {
+                Storage::disk('public')->delete($file);
+            }
+        }
+        
+        // Delete the request
+        $request->delete();
+        
+        return redirect()->route('admin.index')->with('success', 'Request deleted successfully');
     }
 }

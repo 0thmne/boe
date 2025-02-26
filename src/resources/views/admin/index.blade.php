@@ -61,82 +61,123 @@
         <!-- Card Grid -->
         <div class="grid">
             @foreach ($formData as $demand)
-            @if (!request('filter') || $demand->type === request('filter'))
-            <div class="card card-{{ strtolower(str_replace(' ', '-', $demand->status)) }}">
-                <span class="status-badge status-{{ strtolower(str_replace(' ', '-', $demand->status)) }}">{{ $demand->status }}</span>
-                <div class="card-header">
-                    <div class="client">
-                        <div class="client-avatar">
-                            <i class="fas fa-user"></i>
+                @if ((!$selectedTypeFilter || $demand->type === $selectedTypeFilter) && 
+                     (!$selectedStatusFilter || $demand->status === $selectedStatusFilter))
+                    <div class="card card-{{ strtolower(str_replace(' ', '-', $demand->status)) }}">
+                        <span class="status-badge status-{{ strtolower(str_replace(' ', '-', $demand->status)) }}">{{ $demand->status }}</span>
+                        
+                        <div class="card-header">
+                            <div class="client-flow">
+                                <div class="client">
+                                    <div class="client-avatar">
+                                        <i class="fas fa-user"></i>
+                                    </div>
+                                    <div>
+                                        <div class="personne-name">{{ $demand->surname }} {{ $demand->name }}</div>
+                                        <div class="personne-assigne">
+                                            <i class="fas fa-arrow-right"></i>
+                                            @if($demand->assigned_to && $demand->assignedAgent)
+                                                {{ $demand->assignedAgent->surname }} {{ $demand->assignedAgent->name }}
+                                            @else
+                                                Not assigned
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div>
-                            <div class="personne-name">{{ $demand->surname }} {{ $demand->name }}</div>
-                            <div class="request-id">#{{ $demand->id }}</div>
+                        <div class="card-body">
+                            <div class="request-details">
+                                <div class="details-header" style="width: 100%;">
+                                    <h3>Details</h3>
+                                    <div class="request-id" style="text-align: right;">#{{ $demand->id }}</div>
+                                </div>
+                                <div class="detail">
+                                    <span class="detail-icon">
+                                        <i class="fas fa-tag"></i>
+                                    </span>
+                                    @switch($demand->type)
+                                        @case('codification')
+                                            Codification
+                                            @break
+                                        @case('processing')
+                                            Nomenclature Processing
+                                            @break
+                                        @case('loading')
+                                            Nomenclature Loading
+                                            @break
+                                        @case('sheets')
+                                            Stamping Sheets
+                                            @break
+                                        @case('nbe')
+                                            Equipment Number
+                                            @break
+                                        @case('documentation')
+                                            Documentation Loading in Compass
+                                            @break
+                                    @endswitch
+                                </div>
+                                <div class="detail">
+                                    <span class="detail-icon">
+                                        <i class="fas fa-calendar"></i>
+                                    </span>
+                                    Created on: {{ $demand->created_at->format('d/m/Y') }}
+                                </div>
+                                @if ($demand->status === 'Completed')
+                                    <div class="detail">
+                                        <span class="detail-icon">
+                                            <i class="fas fa-check"></i>
+                                        </span>
+                                        Completed on: {{ $demand->updated_at->format('d/m/Y') }}
+                                    </div>
+                                @else
+                                    <div class="detail">
+                                        <span class="detail-icon">
+                                            <i class="fas fa-clock"></i>
+                                        </span>
+                                        Deadline: {{ $demand->due_date ? $demand->due_date->format('d/m/Y') : 'Not set' }}
+                                    </div>
+                                @endif
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="request-details">
-                        <h3>Request</h3>
-                        <div class="detail">
-                            <span class="detail-icon">
-                                <i class="fas fa-tag"></i>
-                                
-                            </span>
-                            @if ($demand->type === 'codification')
-                            Codification
-                            @elseif ($demand->type === 'processing')
-                            Nomenclature Processing
-                            @elseif ($demand->type === 'loading')
-                            Nomenclature Loading
-                            @elseif ($demand->type === 'sheets')
-                            Stamping Sheets
-                            @elseif ($demand->type === 'nbe')
-                            Equipment Number
-                            @elseif ($demand->type === 'documentation')
-                            Documentation Loading in Compass
+                        <div class="card-footer">
+                            <a href="{{ url('admin/demande/details/' . $demand->uuid) }}" class="action-btn" title="View Details">
+                                <i class="fas fa-eye" alt="Details"></i>
+                            </a>
+                            @if ($demand->status !== 'Completed')
+                                <a href="{{ url('admin/demande/edit/' . $demand->uuid) }}" class="action-btn" title="Edit Request">
+                                    <i class="fas fa-edit" alt="Edit"></i>
+                                </a>
+                            @else
+                                <button class="action-btn" title="Archive">
+                                    <i class="fas fa-archive" alt="Archive"></i>
+                                </button>
                             @endif
+                            <form id="deleteForm-{{ $demand->uuid }}" 
+                                  action="{{ route('admin.delete', $demand->uuid) }}" 
+                                  method="POST" 
+                                  style="display: inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="button" 
+                                        class="delete-btn" 
+                                        onclick="showDeleteModal('{{ $demand->uuid }}')" 
+                                        title="Delete">
+                                    <i class="fas fa-trash-alt" alt="Delete"></i>
+                                </button>
+                            </form>
                         </div>
-                        <div class="detail">
-                            <span class="detail-icon">
-                                <i class="fas fa-calendar"></i>
-                            </span>
-                            Created on: {{ $demand->created_at->format('d/m/Y') }}
-                        </div>
-                        @if ($demand->status === 'Completed')
-                        <div class="detail">
-                            <span class="detail-icon">
-                                <i class="fas fa-check"></i>
-                            </span>
-                            Completed on: {{ $demand->due_date->format('d/m/Y') }}
-                        </div>
-                        @else
-                        <div class="detail">
-                            <span class="detail-icon">
-                                <i class="fas fa-clock"></i>
-                            </span>
-                            Deadline: {{ $demand->due_date ? $demand->created_at->diffInDays($demand->due_date) : 'Not set' }} days
-                        </div>
-                        @endif
                     </div>
-                </div>
-                <div class="card-footer">
-                    <a href="{{ url('admin/demande/details/' . $demand->uuid) }}" class="action-btn">
-                        <i class="fas fa-eye" alt="Details"></i>
-                    </a>
-                    @if ($demand->status == 'New' || $demand->status == 'In Progress')
-                    <a class="action-btn" href="{{ url('admin/demande/edit/' . $demand->uuid) }}">
-                        <i class="fas fa-edit" alt="Edit"></i>
-                    </a>
-                    @elseif ($demand->status == 'Completed')
-                    <a class="action-btn">
-                        <i class="fas fa-archive" alt="Archive"></i>
-                    </a>
-                    @endif
-                </div>
-            </div>
-            @endif
+                @endif
             @endforeach
+
+            @if ($formData->isEmpty())
+                <div class="no-results">
+                    <i class="fas fa-search"></i>
+                    <h3>No Requests Found</h3>
+                    <p>No requests match the selected filter criteria.</p>
+                </div>
+            @endif
         </div>
 
         <!-- Pagination Links -->
@@ -164,6 +205,18 @@
         </div>
         @endif
     </div>
+
+    <!-- Add this right after your <body> tag -->
+    <div id="deleteModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <h3>Confirm Deletion</h3>
+            <p>Are you sure you want to delete this request?</p>
+            <div class="modal-buttons">
+                <button id="confirmDelete" class="delete-btn">Delete</button>
+                <button id="cancelDelete" class="cancel-btn">Cancel</button>
+            </div>
+        </div>
+    </div>
 </body>
 <script>
     // Function to handle filter change and redirect with proper parameter
@@ -180,6 +233,82 @@
 
         window.location.href = url;
     }
+
+    function showDeleteModal(uuid) {
+        const modal = document.getElementById('deleteModal');
+        modal.style.display = 'flex';
+        
+        document.getElementById('confirmDelete').onclick = function() {
+            document.getElementById('deleteForm-' + uuid).submit();
+        }
+        
+        document.getElementById('cancelDelete').onclick = function() {
+            modal.style.display = 'none';
+        }
+        
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+    }
 </script>
+
+<style>
+    .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.5);
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+    }
+
+    .modal-content {
+        background-color: white;
+        padding: 20px;
+        border-radius: 8px;
+        width: 400px;
+        max-width: 90%;
+    }
+
+    .modal-buttons {
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+        margin-top: 20px;
+    }
+
+    .delete-btn {
+        background-color: var(--danger-color);
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .cancel-btn {
+        background-color: #6c757d;
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .delete-btn:hover {
+        opacity: 0.9;
+    }
+
+    .cancel-btn:hover {
+        opacity: 0.9;
+    }
+</style>
 
 </html>

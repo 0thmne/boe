@@ -299,3 +299,83 @@ body {
 .page-button:not(.active):hover {
     background-color: #f5f6f7;
 }
+
+.request-id-below-badge {
+    text-align: right;
+    font-size: 0.9em;
+    color: #666;
+    margin-top: 4px;
+}
+
+.client-flow {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.delete-btn {
+    background-color: var(--danger-color);
+    color: white;
+    border: none;
+    padding: 6px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.delete-btn:hover {
+    background-color: #c82333;
+}
+
+.no-results {
+    text-align: center;
+    padding: 40px;
+    background: white;
+    border-radius: 8px;
+    grid-column: 1 / -1;
+}
+
+.no-results i {
+    font-size: 3em;
+    color: #ccc;
+    margin-bottom: 16px;
+}
+
+.no-results h3 {
+    color: #666;
+    margin-bottom: 8px;
+}
+
+.no-results p {
+    color: #999;
+}
+
+.details-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 12px;
+    width: 100%;
+}
+
+.details-header h3 {
+    margin: 0;
+    font-size: 16px;
+    color: #333;
+    flex: 1;
+}
+
+.request-id {
+    font-size: 14px;
+    color: #666;
+    font-weight: 500;
+    text-align: right;
+    margin-left: auto;
+}
+
+/* Remove the old request-id-below-badge class since we're not using it anymore */
+.request-id-below-badge {
+    display: none;
+}
