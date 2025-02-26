@@ -234,11 +234,6 @@
                     @endforeach
                 </div>
 
-                <div class="action-buttons">
-                    <a href="{{ url('/admin') }}" class="btn btn-secondary">
-                        <i class="fas fa-arrow-left"></i> Back
-                    </a>
-                </div>
             </div>
         </div>
     </div>

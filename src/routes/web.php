@@ -24,3 +24,5 @@ Route::post('/request', [FormController::class, 'submitForm']);
 Route::get('admin/demande/details/{uuid}', [FormController::class, 'showDetails']); // Updated to use 'uuid'
 Route::get('/admin/demandes', [AdminController::class, 'index']);
 Route::get('/admin', [AdminController::class, 'index']);
+Route::get('admin/add-agent', [AdminController::class, 'showAddAgentForm'])->name('add-agent.form');
+Route::post('admin/add-agent', [AdminController::class, 'storeAgent'])->name('add-agent.store');

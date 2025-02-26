@@ -1,31 +1,102 @@
 :root {
     --primary-color: #243782;
-    --hover-color: #2a4098;
-    --error-color: #ff4444;
-    --border-color: #ddd;
-    --shadow-color: rgba(0, 0, 0, 0.1);
+    --secondary-color: #1d2d6f;
+    --background-color: #f5f7fa;
+    --border-color: #e1e4e8;
+    --text-color: #24292e;
+    --hover-color: #f6f8fa;
+    --success-color: #28a745;
+    --warning-color: #ffd700;
+    --danger-color: #dc3545;
+    --info-color: #17a2b8;
+
+    /* Status colors */
+    --new-color: #1976d2;
+    /* Blue */
+    --in-progress-color: #f57c00;
+    /* Orange */
+    --completed-color: #2e7d32;
+    /* Green */
 }
 
 * {
-    box-sizing: border-box;
     margin: 0;
     padding: 0;
-
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 }
 
 body {
-    margin: 0;
-    padding: 20px;
-    font-family: Arial, sans-serif;
-    background-color: #f5f5f5;
+    background-color: var(--background-color);
+    color: var(--text-color);
     line-height: 1.6;
 }
 
 .container {
-    max-width: 1000px;
+    max-width: 1200px;
     margin: 0 auto;
+    padding: 20px;
 }
 
+/* Header Styles */
+.header {
+    background-color: white;
+    padding: 1rem 2rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.logo a {
+    text-decoration: none;
+    color: var(--primary-color);
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+/* Back button */
+.back-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    padding: 0.5rem 1rem;
+    background-color: white;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+
+.back-button:hover {
+    background-color: var(--hover-color);
+}
+
+/* Form Styles */
 form {
     padding: 30px;
     background: white;
@@ -77,7 +148,7 @@ label {
 
 .required::after {
     content: '*';
-    color: var(--error-color);
+    color: var(--danger-color);
     margin-left: 4px;
 }
 
@@ -120,7 +191,7 @@ select:focus {
 
 .submit-button:hover {
     transform: translateY(-2px);
-    background-color: var(--hover-color);
+    background-color: var(--secondary-color);
 }
 
 @media (max-width: 768px) {

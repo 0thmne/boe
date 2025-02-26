@@ -24,7 +24,7 @@ class User extends Authenticatable
         'uuid',
         'email',
         'password',
-        'role', // Add role to fillable properties
+        'role',
     ];
 
     /**
