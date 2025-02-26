@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\FormData;
+use App\Models\User;
 
 class FormController extends Controller
 {
@@ -15,7 +16,7 @@ class FormController extends Controller
     public function submitForm(Request $request)
     {
         $validatedData = $request->validate([
-            'uuid' => 'required|string|unique:form_data,uuid',
+            'uuid' => 'required|string|unique:form_data,uuid|unique:users,uuid',
             'name' => 'required|string',
             'surname' => 'required|string',
             'site' => 'required|string',
@@ -59,7 +60,19 @@ class FormController extends Controller
         // Store file paths as a JSON array in the 'file_client' column
         $validatedData['file_client'] = json_encode($filePaths);
 
+        // Save data in form_data table
         FormData::create($validatedData);
+
+        // Save data in users table
+        User::create([
+            'uuid' => $validatedData['uuid'],
+            'name' => $validatedData['name'],
+            'surname' => $validatedData['surname'],
+            'site' => $validatedData['site'],
+            'email' => $validatedData['surname'] . '@example.com', // Assuming email is generated from uuid
+            'password' => bcrypt('password'), // Assuming a default password
+            'role' => 'client', // Set default role to client
+        ]);
 
         return redirect()->back()->with('success', 'Form submitted successfully!');
     }
