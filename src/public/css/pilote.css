@@ -17,6 +17,9 @@
     /* Orange */
     --completed-color: #2e7d32;
     /* Vert */
+
+    /* Add this to your :root variables if not already present */
+    --primary-color-rgb: 36, 55, 130; /* RGB values for your primary color */
 }
 
 * {
@@ -38,22 +41,26 @@ body {
 
 /* Header Styles */
 .header {
-    background-color: white;
-    padding: 1rem 2rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 10px;
+    padding: 1rem 2rem;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
 }
 
 .logo {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: var(--primary-color);
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 10px;
+    font-size: 1.2rem;
+    font-weight: 600;
 }
 
 .logo i {
@@ -63,7 +70,7 @@ body {
 .user-profile {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 10px;
 }
 
 .user-avatar {
@@ -433,4 +440,57 @@ body {
 /* Remove the old request-id-below-badge class since we're not using it anymore */
 .request-id-below-badge {
     display: none;
+}
+
+/* Language Selector Styling */
+.language-selector {
+    position: relative;
+    margin-right: 20px;
+}
+
+.language-selector select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    padding: 8px 35px 8px 12px;
+    font-size: 14px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    background-color: white;
+    color: var(--text-color);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 120px;
+    
+    /* Custom dropdown arrow */
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+    background-size: 16px;
+}
+
+.language-selector select:hover {
+    border-color: var(--primary-color);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.language-selector select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(var(--primary-color-rgb), 0.1);
+}
+
+/* Language option styling */
+.language-selector select option {
+    padding: 8px;
+    font-size: 14px;
+    background-color: white;
+    color: var(--text-color);
+}
+
+/* Adjust header layout if needed */
+.user-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
 }

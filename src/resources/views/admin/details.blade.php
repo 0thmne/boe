@@ -31,17 +31,17 @@
 
         <div class="detail-card">
             <div class="detail-header">
-                <h1 class="detail-title">Request {{ $requestDetails->type }}</h1>
+                <h1 class="detail-title">{{ __('app.request_details') }}</h1>
                 <p class="detail-subtitle">{{ $requestDetails->uuid }}</p>
                 <span class="status-badge status-{{ strtolower(str_replace(' ', '-', $requestDetails->status)) }}">{{ $requestDetails->status }}</span>
             </div>
             <div class="detail-body">
                 <div class="info-grid">
                     <div class="info-section">
-                        <h3>Request Information</h3>
+                        <h3>{{ __('app.request_information') }}</h3>
 
                         <div class="info-row">
-                            <div class="info-label">Type:</div>
+                            <div class="info-label">{{ __('app.type') }}:</div>
                             <div class="info-value">
                                 @if ($requestDetails->type === 'codification')
                                 Codification
@@ -60,44 +60,44 @@
                         </div>
                         
                         <div class="info-row">
-                            <span class="info-label">Created on:</span>
-                            <span class="info-value">{{ $requestDetails->created_at ? $requestDetails->created_at->format('d/m/Y') : 'Not set' }}</span>
+                            <span class="info-label">{{ __('app.created_on') }}:</span>
+                            <span class="info-value">{{ $requestDetails->created_at ? $requestDetails->created_at->format('d/m/Y') : __('app.not_set') }}</span>
                         </div>
                         @if ($requestDetails->dateech)
                         <div class="info-row">
-                            <div class="info-label">Deadline:</div>
-                            <div class="info-value">{{ $requestDetails->due_date ? $requestDetails->due_date->format('d/m/Y') : 'Not set' }}</div>
+                            <div class="info-label">{{ __('app.deadline') }}:</div>
+                            <div class="info-value">{{ $requestDetails->due_date ? $requestDetails->due_date->format('d/m/Y') : __('app.not_set') }}</div>
                         </div>
                         @endif
                         <div class="info-row">
-                            <span class="info-label">Completed on:</span>
-                            <span class="info-value">{{ $requestDetails->completed_at ? $requestDetails->completed_at->format('d/m/Y') : 'Not set' }}</span>
+                            <span class="info-label">{{ __('app.completed_on') }}:</span>
+                            <span class="info-value">{{ $requestDetails->completed_at ? $requestDetails->completed_at->format('d/m/Y') : __('app.not_set') }}</span>
                         </div>
                         <div class="info-row">
-                            <div class="info-label">Status:</div>
-                            <div class="info-value">{{ $requestDetails->status }}</div>
+                            <div class="info-label">{{ __('app.status') }}:</div>
+                            <div class="info-value">{{ __('app.' . strtolower($requestDetails->status)) }}</div>
                         </div>
                         @if ($requestDetails->numberArticles)
                         <div class="info-row">
-                            <div class="info-label">Number of Articles:</div>
+                            <div class="info-label">{{ __('app.number_of_articles') }}:</div>
                             <div class="info-value">{{ $requestDetails->numberArticles }}</div>
                         </div>
                         @endif
                         @if ($requestDetails->aocType)
                         <div class="info-row">
-                            <div class="info-label">AOC Type:</div>
+                            <div class="info-label">{{ __('app.aoc_type') }}:</div>
                             <div class="info-value">{{ $requestDetails->aocType }}</div>
                         </div>
                         @endif
                         @if ($requestDetails->documentSearch)
                         <div class="info-row">
-                            <div class="info-label">Document Search:</div>
+                            <div class="info-label">{{ __('app.document_search') }}:</div>
                             <div class="info-value">{{ $requestDetails->documentSearch }}</div>
                         </div>
                         @endif
                         @if ($requestDetails->language)
                         <div class="info-row">
-                            <div class="info-label">Language:</div>
+                            <div class="info-label">{{ __('app.language') }}:</div>
                             <div class="info-value">
                                  @php
                                 $languageMap = [
@@ -154,110 +154,110 @@
                         @endif
                         @if ($requestDetails->nbeName)
                         <div class="info-row">
-                            <div class="info-label">NBE Name:</div>
+                            <div class="info-label">{{ __('app.nbe_name') }}:</div>
                             <div class="info-value">{{ $requestDetails->nbeName }}</div>
                         </div>
                         @endif
                         @if ($requestDetails->documentSearchNom)
                         <div class="info-row">
-                            <div class="info-label">Document Search Nom:</div>
+                            <div class="info-label">{{ __('app.document_search_nom') }}:</div>
                             <div class="info-value">{{ $requestDetails->documentSearchNom }}</div>
                         </div>
                         @endif
                         @if ($requestDetails->languageName)
                         <div class="info-row">
-                            <div class="info-label">Language Name:</div>
+                            <div class="info-label">{{ __('app.language_name') }}:</div>
                             <div class="info-value">{{ $requestDetails->languageName }}</div>
                         </div>
                         @endif
                         @if ($requestDetails->nbeNameTrait)
                         <div class="info-row">
-                            <div class="info-label">NBE Name Trait:</div>
+                            <div class="info-label">{{ __('app.nbe_name_trait') }}:</div>
                             <div class="info-value">{{ $requestDetails->nbeNameTrait }}</div>
                         </div>
                         @endif
                         @if ($requestDetails->job)
                         <div class="info-row">
-                            <div class="info-label">Job:</div>
+                            <div class="info-label">{{ __('app.job') }}:</div>
                             <div class="info-value">{{ $requestDetails->job }}</div>
                         </div>
                         @endif
                         @if ($requestDetails->numberLines)
                         <div class="info-row">
-                            <div class="info-label">Number of Lines:</div>
+                            <div class="info-label">{{ __('app.number_of_lines') }}:</div>
                             <div class="info-value">{{ $requestDetails->numberLines }}</div>
                         </div>
                         @endif
                         @if ($requestDetails->jobNbe)
                         <div class="info-row">
-                            <div class="info-label">Job NBE:</div>
+                            <div class="info-label">{{ __('app.job_nbe') }}:</div>
                             <div class="info-value">{{ $requestDetails->jobNbe }}</div>
                         </div>
                         @endif
                         @if ($requestDetails->sector)
                         <div class="info-row">
-                            <div class="info-label">Sector:</div>
+                            <div class="info-label">{{ __('app.sector') }}:</div>
                             <div class="info-value">{{ $requestDetails->sector }}</div>
                         </div>
                         @endif
                         @if ($requestDetails->projectName)
                         <div class="info-row">
-                            <div class="info-label">Project Name:</div>
+                            <div class="info-label">{{ __('app.project_name') }}:</div>
                             <div class="info-value">{{ $requestDetails->projectName }}</div>
                         </div>
                         @endif
                         @if ($requestDetails->typeMillion)
                         <div class="info-row">
-                            <div class="info-label">Type Million:</div>
+                            <div class="info-label">{{ __('app.type_million') }}:</div>
                             <div class="info-value">{{ $requestDetails->typeMillion }}</div>
                         </div>
                         @endif
                         @if ($requestDetails->mainFunction)
                         <div class="info-row">
-                            <div class="info-label">Main Function:</div>
+                            <div class="info-label">{{ __('app.main_function') }}:</div>
                             <div class="info-value">{{ $requestDetails->mainFunction }}</div>
                         </div>
                         @endif
                         @if ($requestDetails->elementaryFunction)
                         <div class="info-row">
-                            <div class="info-label">Elementary Function:</div>
+                            <div class="info-label">{{ __('app.elementary_function') }}:</div>
                             <div class="info-value">{{ $requestDetails->elementaryFunction }}</div>
                         </div>
                         @endif
                         @if ($requestDetails->numberLinesNbe)
                         <div class="info-row">
-                            <div class="info-label">Number of Lines NBE:</div>
+                            <div class="info-label">{{ __('app.number_of_lines_nbe') }}:</div>
                             <div class="info-value">{{ $requestDetails->numberLinesNbe }}</div>
                         </div>
                         @endif
                         @if ($requestDetails->technicalPost)
                         <div class="info-row">
-                            <div class="info-label">Technical Post:</div>
+                            <div class="info-label">{{ __('app.technical_post') }}:</div>
                             <div class="info-value">{{ $requestDetails->technicalPost }}</div>
                         </div>
                         @endif
                     </div>
 
                     <div class="info-section">
-                        <h3>User Information</h3>
+                        <h3>{{ __('app.user_information') }}</h3>
 
                         <div class="info-row">
-                            <div class="info-label">ID:</div>
+                            <div class="info-label">{{ __('app.id') }}:</div>
                             <div class="info-value">{{ $requestDetails->id }}</div>
                         </div>
 
 
                         <div class="info-row">
-                            <div class="info-label">Last Name:</div>
+                            <div class="info-label">{{ __('app.last_name') }}:</div>
                             <div class="info-value">{{ $requestDetails->surname }}</div>
                         </div>
                         <div class="info-row">
-                            <div class="info-label">First Name:</div>
+                            <div class="info-label">{{ __('app.first_name') }}:</div>
                             <div class="info-value">{{ $requestDetails->name }}</div>
                         </div>
 
                         <div class="info-row">
-                            <div class="info-label">Site:</div>
+                            <div class="info-label">{{ __('app.site') }}:</div>
                             <div class="info-value">{{ $requestDetails->site }}</div>
                         </div>
 
@@ -267,7 +267,7 @@
                 <!-- New file download section -->
                 <div class="file-download-section">
                     <h3 class="file-download-title">
-                        <i class="fas fa-file-download"></i> Files
+                        <i class="fas fa-file-download"></i> {{ __('app.files') }}
                     </h3>
                     @foreach (json_decode($requestDetails->file_client, true) as $file)
                     <div class="file-item">
@@ -280,7 +280,7 @@
                             </div>
                         </div>
                         <a href="{{ asset('storage/' . $file) }}" class="download-btn" download="{{ basename($file) }}">
-                            <i class="fas fa-download"></i> Download
+                            <i class="fas fa-download"></i> {{ __('app.download') }}
                         </a>
                     </div>
                     @endforeach

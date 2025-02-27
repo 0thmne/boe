@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FormController;
 use App\Http\Controllers\AdminController;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,3 +30,12 @@ Route::post('admin/add-agent', [AdminController::class, 'storeAgent'])->name('ad
 Route::get('admin/demande/edit/{uuid}', [AdminController::class, 'showEditForm'])->name('edit.form');
 Route::put('admin/demande/edit/{uuid}', [AdminController::class, 'updateRequest'])->name('edit.update');
 Route::delete('admin/demande/delete/{uuid}', [AdminController::class, 'deleteRequest'])->name('admin.delete');
+
+Route::post('/change-language', function (Request $request) {
+    $language = $request->input('language');
+    if (in_array($language, ['en', 'fr'])) {
+        session(['locale' => $language]);
+        app()->setLocale($language);
+    }
+    return redirect()->back();
+})->name('change-language');
