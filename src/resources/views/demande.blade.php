@@ -6,86 +6,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&family=Noto+Color+Emoji&display=swap" rel="stylesheet">
     <title>{{ __('app.request_form') }}</title>
+    <link rel="stylesheet" href="{{ asset('css/pilote.css') }}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-    <style>
-        body {
-            padding-top: 80px; /* Add padding to account for fixed header */
-            background-color: #f8f9fa;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-        }
-
-        .alert {
-            padding: 15px;
-            margin-bottom: 20px;
-            border: 1px solid transparent;
-            border-radius: 4px;
-        }
-        
-        .alert-success {
-            color: #155724;
-            background-color: #d4edda;
-            border-color: #c3e6cb;
-        }
-        
-        .alert-danger {
-            color: #721c24;
-            background-color: #f8d7da;
-            border-color: #f5c6cb;
-        }
-        
-        .alert ul {
-            margin: 0;
-            padding-left: 20px;
-        }
-        
-        .alert li {
-            margin: 5px 0;
-        }
-
-        .form-title {
-            text-align: center;
-            color: #333;
-            margin-bottom: 2rem;
-        }
-
-        .form-title h2 {
-            margin: 0;
-            font-size: 2rem;
-        }
-
-        .form-title a {
-            text-decoration: none;
-            color: inherit;
-        }
-    </style>
+    
 </head>
 
 <body>
-    @include('components.header-request')
+    @include('components.header-admin')
 
     <div class="container">
         @if(session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
         @endif
 
         @if($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
+        <div class="alert alert-danger">
+            <ul>
+                @foreach($errors->all() as $error)
+                <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
         @endif
 
         <div class="form-title">
@@ -272,7 +215,7 @@
             <div class="button-wrapper">
                 <button type="submit" class="submit-button">{{ __('form.create') }}</button>
             </div>
-            
+
         </form>
     </div>
     <script src="{{ asset('js/app.js') }}"></script>

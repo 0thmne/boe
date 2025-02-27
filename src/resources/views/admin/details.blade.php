@@ -4,10 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Professional Request Processing Interface">
     <title>{{ __('app.pilot_interface') }} - {{ __('details.request_details') }}</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/details.css') }}">
     <link rel="stylesheet" href="{{ asset('css/pilote.css') }}">
+
 </head>
 
 <body>
@@ -23,23 +25,23 @@
                 <h1 class="detail-title">{{ __('details.request_details') }}</h1>
                 <span class="status-badge status-{{ strtolower(str_replace(' ', '-', $requestDetails->status)) }}">
                     @if($requestDetails->status == 'In Progress')
-                        {{ __('app.in_progress') }}
+                    {{ __('app.in_progress') }}
                     @else
-                        {{ __('app.' . strtolower($requestDetails->status)) }}
+                    {{ __('app.' . strtolower($requestDetails->status)) }}
                     @endif
                 </span>
                 <div class="assigned-to">
                     <span class="info-label">{{ __('details.assigned_to') }}:</span>
                     <span class="info-value">
                         @if($requestDetails->assigned_to && $requestDetails->assignedAgent)
-                            {{ $requestDetails->assignedAgent->surname }} {{ $requestDetails->assignedAgent->name }}
+                        {{ $requestDetails->assignedAgent->surname }} {{ $requestDetails->assignedAgent->name }}
                         @else
-                            {{ __('details.not_assigned') }}
+                        {{ __('details.not_assigned') }}
                         @endif
                     </span>
                 </div>
             </div>
-            
+
             <div class="detail-body">
                 <div class="info-grid">
                     <div class="info-section">
@@ -49,21 +51,21 @@
                             <div class="info-label">{{ __('details.type') }}:</div>
                             <div class="info-value">
                                 @if ($requestDetails->type === 'codification')
-                                    {{ __('app.codification') }}
+                                {{ __('app.codification') }}
                                 @elseif ($requestDetails->type === 'processing')
-                                    {{ __('app.processing') }}
+                                {{ __('app.processing') }}
                                 @elseif ($requestDetails->type === 'loading')
-                                    {{ __('app.loading') }}
+                                {{ __('app.loading') }}
                                 @elseif ($requestDetails->type === 'sheets')
-                                    {{ __('app.sheets') }}
+                                {{ __('app.sheets') }}
                                 @elseif ($requestDetails->type === 'nbe')
-                                    {{ __('app.nbe') }}
+                                {{ __('app.nbe') }}
                                 @elseif ($requestDetails->type === 'documentation')
-                                    {{ __('app.documentation') }}
+                                {{ __('app.documentation') }}
                                 @endif
                             </div>
                         </div>
-                        
+
                         <div class="info-row">
                             <span class="info-label">{{ __('details.created_on') }}:</span>
                             <span class="info-value">{{ $requestDetails->created_at ? $requestDetails->created_at->format('d/m/Y') : __('details.not_set') }}</span>
@@ -82,9 +84,9 @@
                             <div class="info-label">{{ __('details.status') }}:</div>
                             <div class="info-value">
                                 @if($requestDetails->status == 'In Progress')
-                                    {{ __('app.in_progress') }}
+                                {{ __('app.in_progress') }}
                                 @else
-                                    {{ __('app.' . strtolower($requestDetails->status)) }}
+                                {{ __('app.' . strtolower($requestDetails->status)) }}
                                 @endif
                             </div>
                         </div>
@@ -110,56 +112,56 @@
                         <div class="info-row">
                             <div class="info-label">{{ __('details.language') }}:</div>
                             <div class="info-value">
-                                 @php
+                                @php
                                 $languageMap = [
-                                    '3N' => 'English',
-                                    'A7' => 'Australian',
-                                    'AF' => 'Afrikaans',
-                                    'AR' => 'Arabic',
-                                    'BG' => 'Bulgarian',
-                                    'CA' => 'Catalan',
-                                    'CS' => 'Czech',
-                                    'DA' => 'Danish',
-                                    'DE' => 'German',
-                                    'EL' => 'Greek',
-                                    'EN' => 'English',
-                                    'ES' => 'Spanish',
-                                    'ET' => 'Estonian',
-                                    'FI' => 'Finnish',
-                                    'FR' => 'French',
-                                    'HE' => 'Hebrew',
-                                    'HI' => 'Hindi',
-                                    'HR' => 'Croatian',
-                                    'HU' => 'Hungarian',
-                                    'ID' => 'Indonesian',
-                                    'IS' => 'Icelandic',
-                                    'IT' => 'Italian',
-                                    'JA' => 'Japanese',
-                                    'KK' => 'Kazakh',
-                                    'KO' => 'Korean',
-                                    'LT' => 'Lithuanian',
-                                    'LV' => 'Latvian',
-                                    'MS' => 'Malay',
-                                    'NL' => 'Dutch',
-                                    'NO' => 'Norwegian',
-                                    'PL' => 'Polish',
-                                    'RO' => 'Romanian',
-                                    'RU' => 'Russian',
-                                    'SH' => 'Serbian (Latin)',
-                                    'SK' => 'Slovak',
-                                    'SL' => 'Slovenian',
-                                    'SR' => 'Serbian',
-                                    'SV' => 'Swedish',
-                                    'TH' => 'Thai',
-                                    'TR' => 'Turkish',
-                                    'UK' => 'Ukrainian',
-                                    'VI' => 'Vietnamese',
-                                    'Z1' => 'Client Reserve',
-                                    'ZF' => 'Traditional Chinese',
-                                    'ZH' => 'Chinese',
+                                '3N' => 'English',
+                                'A7' => 'Australian',
+                                'AF' => 'Afrikaans',
+                                'AR' => 'Arabic',
+                                'BG' => 'Bulgarian',
+                                'CA' => 'Catalan',
+                                'CS' => 'Czech',
+                                'DA' => 'Danish',
+                                'DE' => 'German',
+                                'EL' => 'Greek',
+                                'EN' => 'English',
+                                'ES' => 'Spanish',
+                                'ET' => 'Estonian',
+                                'FI' => 'Finnish',
+                                'FR' => 'French',
+                                'HE' => 'Hebrew',
+                                'HI' => 'Hindi',
+                                'HR' => 'Croatian',
+                                'HU' => 'Hungarian',
+                                'ID' => 'Indonesian',
+                                'IS' => 'Icelandic',
+                                'IT' => 'Italian',
+                                'JA' => 'Japanese',
+                                'KK' => 'Kazakh',
+                                'KO' => 'Korean',
+                                'LT' => 'Lithuanian',
+                                'LV' => 'Latvian',
+                                'MS' => 'Malay',
+                                'NL' => 'Dutch',
+                                'NO' => 'Norwegian',
+                                'PL' => 'Polish',
+                                'RO' => 'Romanian',
+                                'RU' => 'Russian',
+                                'SH' => 'Serbian (Latin)',
+                                'SK' => 'Slovak',
+                                'SL' => 'Slovenian',
+                                'SR' => 'Serbian',
+                                'SV' => 'Swedish',
+                                'TH' => 'Thai',
+                                'TR' => 'Turkish',
+                                'UK' => 'Ukrainian',
+                                'VI' => 'Vietnamese',
+                                'Z1' => 'Client Reserve',
+                                'ZF' => 'Traditional Chinese',
+                                'ZH' => 'Chinese',
                                 ];
-                            @endphp
-                            {{ $languageMap[$requestDetails->language] ?? $requestDetails->language }}
+                                @endphp
+                                {{ $languageMap[$requestDetails->language] ?? $requestDetails->language }}
                             </div>
                         </div>
                         @endif
