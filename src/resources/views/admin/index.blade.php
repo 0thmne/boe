@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ __('app.pilot_interface') }}</title>
+    <title>Pilot Interface </title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/pilote.css') }}">
 </head>
@@ -17,62 +17,54 @@
         <!-- Status -->
         <div class="stats-container">
             <div class="stat-card">
-                <h3>{{ __('app.new') }}</h3>
-                <div class="stat-value">{{ $countNew }}</div>
+                <h3>New</h3>
+                <div class="stat-value" style="color: var(--new-color);">{{ $countNew }}</div>
             </div>
             <div class="stat-card">
-                <h3>{{ __('app.in_progress') }}</h3>
-                <div class="stat-value">{{ $countProgress }}</div>
+                <h3>In Progress</h3>
+                <div class="stat-value" style="color: var(--in-progress-color);">{{ $countProgress }}</div>
             </div>
             <div class="stat-card">
-                <h3>{{ __('app.completed') }}</h3>
-                <div class="stat-value">{{ $countCompleted }}</div>
+                <h3>Completed</h3>
+                <div class="stat-value" style="color: var(--completed-color);">{{ $countCompleted }}</div>
             </div>
         </div>
 
         <!-- Filter Section -->
         <div class="filter-section">
-            <h2 class="filter-title">
-                {{ $selectedStatusFilter ? __('app.requests') . ' ' . __('app.' . strtolower(str_replace(' ', '-', $selectedStatusFilter))) : __('app.all_requests') }}
-            </h2>
+            <h2 class="filter-title">{{ $selectedStatusFilter ? 'Requests ' . $selectedStatusFilter : 'All Requests' }}</h2>
 
             <div class="filter-group">
-                <span class="filter-label">{{ __('app.type') }}:</span>
+                <span class="filter-label">Type:</span>
                 <select id="typeFilter" class="filter-dropdown" onchange="handleFilterChange()">
-                    <option value="" {{ $selectedTypeFilter === '' ? 'selected' : '' }}>{{ __('app.all_types') }}</option>
-                    <option value="codification" {{ $selectedTypeFilter === 'codification' ? 'selected' : '' }}>{{ __('app.codification') }}</option>
-                    <option value="processing" {{ $selectedTypeFilter === 'processing' ? 'selected' : '' }}>{{ __('app.processing') }}</option>
-                    <option value="loading" {{ $selectedTypeFilter === 'loading' ? 'selected' : '' }}>{{ __('app.loading') }}</option>
-                    <option value="fiches" {{ $selectedTypeFilter === 'fiches' ? 'selected' : '' }}>{{ __('app.sheets') }}</option>
-                    <option value="nbe" {{ $selectedTypeFilter === 'nbe' ? 'selected' : '' }}>{{ __('app.nbe') }}</option>
-                    <option value="documentation" {{ $selectedTypeFilter === 'documentation' ? 'selected' : '' }}>{{ __('app.documentation') }}</option>
+                    <option value="" {{ $selectedTypeFilter === '' ? 'selected' : '' }}>All Types</option>
+                    <option value="codification" {{ $selectedTypeFilter === 'codification' ? 'selected' : '' }}>Codification</option>
+                    <option value="processing" {{ $selectedTypeFilter === 'processing' ? 'selected' : '' }}>Nomenclature Processing</option>
+                    <option value="loading" {{ $selectedTypeFilter === 'loading' ? 'selected' : '' }}>Nomenclature Loading</option>
+                    <option value="fiches" {{ $selectedTypeFilter === 'fiches' ? 'selected' : '' }}>Stamping Sheets</option>
+                    <option value="nbe" {{ $selectedTypeFilter === 'nbe' ? 'selected' : '' }}>Equipment Number</option>
+                    <option value="documentation" {{ $selectedTypeFilter === 'documentation' ? 'selected' : '' }}>Documentation Loading in Compass</option>
                 </select>
             </div>
 
             <div class="filter-group">
-                <span class="filter-label">{{ __('app.status') }}:</span>
+                <span class="filter-label">Status:</span>
                 <select id="statusFilter" class="filter-dropdown" onchange="handleFilterChange()">
-                    <option value="" {{ $selectedStatusFilter === '' ? 'selected' : '' }}>{{ __('app.all_status') }}</option>
-                    <option value="New" {{ $selectedStatusFilter === 'New' ? 'selected' : '' }}>{{ __('app.new') }}</option>
-                    <option value="In Progress" {{ $selectedStatusFilter === 'In Progress' ? 'selected' : '' }}>{{ __('app.in_progress') }}</option>
-                    <option value="Completed" {{ $selectedStatusFilter === 'Completed' ? 'selected' : '' }}>{{ __('app.completed') }}</option>
+                    <option value="" {{ $selectedStatusFilter === '' ? 'selected' : '' }}>All Status</option>
+                    <option value="New" {{ $selectedStatusFilter === 'New' ? 'selected' : '' }}>New</option>
+                    <option value="In Progress" {{ $selectedStatusFilter === 'In Progress' ? 'selected' : '' }}>In Progress</option>
+                    <option value="Completed" {{ $selectedStatusFilter === 'Completed' ? 'selected' : '' }}>Completed</option>
                 </select>
             </div>
         </div>
 
-        <!-- Grid Section -->
+        <!-- Card Grid -->
         <div class="grid">
             @foreach ($formData as $demand)
                 @if ((!$selectedTypeFilter || $demand->type === $selectedTypeFilter) && 
                      (!$selectedStatusFilter || $demand->status === $selectedStatusFilter))
                     <div class="card card-{{ strtolower(str_replace(' ', '-', $demand->status)) }}">
-                        <span class="status-badge status-{{ strtolower(str_replace(' ', '-', $demand->status)) }}">
-                            @if($demand->status === 'In Progress')
-                                {{ __('app.in_progress') }}
-                            @else
-                                {{ __('app.' . strtolower($demand->status)) }}
-                            @endif
-                        </span>
+                        <span class="status-badge status-{{ strtolower(str_replace(' ', '-', $demand->status)) }}">{{ $demand->status }}</span>
                         
                         <div class="card-header">
                             <div class="client-flow">
@@ -87,7 +79,7 @@
                                             @if($demand->assigned_to && $demand->assignedAgent)
                                                 {{ $demand->assignedAgent->surname }} {{ $demand->assignedAgent->name }}
                                             @else
-                                                {{ __('app.not_assigned') }}
+                                                Not assigned
                                             @endif
                                         </div>
                                     </div>
@@ -97,49 +89,68 @@
                         <div class="card-body">
                             <div class="request-details">
                                 <div class="details-header" style="width: 100%;">
-                                    <h3>{{ __('app.details') }}</h3>
+                                    <h3>Details</h3>
                                     <div class="request-id" style="text-align: right;">#{{ $demand->id }}</div>
                                 </div>
                                 <div class="detail">
                                     <span class="detail-icon">
                                         <i class="fas fa-tag"></i>
                                     </span>
-                                    {{ __('app.' . strtolower($demand->type)) }}
+                                    @switch($demand->type)
+                                        @case('codification')
+                                            Codification
+                                            @break
+                                        @case('processing')
+                                            Nomenclature Processing
+                                            @break
+                                        @case('loading')
+                                            Nomenclature Loading
+                                            @break
+                                        @case('sheets')
+                                            Stamping Sheets
+                                            @break
+                                        @case('nbe')
+                                            Equipment Number
+                                            @break
+                                        @case('documentation')
+                                            Documentation Loading in Compass
+                                            @break
+                                    @endswitch
                                 </div>
                                 <div class="detail">
                                     <span class="detail-icon">
                                         <i class="fas fa-calendar"></i>
                                     </span>
-                                    {{ __('app.created_on') }}: {{ $demand->created_at->format('d/m/Y') }}
+                                    Created on: {{ $demand->created_at->format('d/m/Y') }}
                                 </div>
                                 @if ($demand->status === 'Completed')
                                     <div class="detail">
                                         <span class="detail-icon">
                                             <i class="fas fa-check"></i>
                                         </span>
-                                        {{ __('app.completed_on') }}: {{ $demand->updated_at->format('d/m/Y') }}
+                                        Completed on: {{ $demand->updated_at->format('d/m/Y') }}
                                     </div>
                                 @else
                                     <div class="detail">
                                         <span class="detail-icon">
                                             <i class="fas fa-clock"></i>
                                         </span>
-                                        {{ __('app.deadline') }}: {{ $demand->due_date ? $demand->due_date->format('d/m/Y') : __('app.not_set') }}
+                                        Deadline: {{ $demand->due_date ? $demand->due_date->format('d/m/Y') : 'Not set' }}
                                     </div>
                                 @endif
                             </div>
                         </div>
                         <div class="card-footer">
-                            <a href="{{ url('admin/demande/details/' . $demand->uuid) }}" class="action-btn" title="{{ __('app.view') }}">
-                                <i class="fas fa-eye" alt="{{ __('app.view') }}"></i>
+                            <a href="{{ url('admin/demande/details/' . $demand->uuid) }}" class="action-btn" title="View Details">
+                                <i class="fas fa-eye" alt="Details"></i>
                             </a>
                             @if ($demand->status !== 'Completed')
-                                <a href="{{ url('admin/demande/edit/' . $demand->uuid) }}" class="action-btn" title="{{ __('app.edit') }}">
-                                    <i class="fas fa-edit" alt="{{ __('app.edit') }}"></i>
+                                <a href="{{ url('admin/demande/edit/' . $demand->uuid) }}" class="action-btn" title="Edit Request">
+                                    <i class="fas fa-edit" alt="Edit"></i>
                                 </a>
                             @else
-                                <button class="action-btn" title="{{ __('app.archive') }}">
-                                    <i class="fas fa-archive" alt="{{ __('app.archive') }}"></i>
+                                <button class="action-btn" title="Archive">
+                                    <i class="fas fa-archive" alt="Archive"></i>
                                 </button>
                             @endif
                             <form id="deleteForm-{{ $demand->uuid }}" 
@@ -151,8 +162,8 @@
                                 <button type="button" 
                                         class="delete-btn" 
                                         onclick="showDeleteModal('{{ $demand->uuid }}')" 
-                                        title="{{ __('app.delete') }}">
-                                    <i class="fas fa-trash-alt" alt="{{ __('app.delete') }}"></i>
+                                        title="Delete">
+                                    <i class="fas fa-trash-alt" alt="Delete"></i>
                                 </button>
                             </form>
                         </div>
@@ -163,8 +174,8 @@
             @if ($formData->isEmpty())
                 <div class="no-results">
                     <i class="fas fa-search"></i>
-                    <h3>{{ __('app.no_results') }}</h3>
-                    <p>{{ __('app.no_results_desc') }}</p>
+                    <h3>No Requests Found</h3>
+                    <p>No requests match the selected filter criteria.</p>
                 </div>
             @endif
         </div>
@@ -198,11 +209,11 @@
     <!-- Add this right after your <body> tag -->
     <div id="deleteModal" class="modal" style="display: none;">
         <div class="modal-content">
-            <h3>{{ __('app.confirm_delete') }}</h3>
-            <p>{{ __('app.delete_confirm_message') }}</p>
+            <h3>Confirm Deletion</h3>
+            <p>Are you sure you want to delete this request?</p>
             <div class="modal-buttons">
-                <button id="confirmDelete" class="delete-btn">{{ __('app.delete') }}</button>
-                <button id="cancelDelete" class="cancel-btn">{{ __('app.cancel') }}</button>
+                <button id="confirmDelete" class="delete-btn">Delete</button>
+                <button id="cancelDelete" class="cancel-btn">Cancel</button>
             </div>
         </div>
     </div>
