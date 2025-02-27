@@ -58,19 +58,20 @@
                                 @endif
                             </div>
                         </div>
+                        
                         <div class="info-row">
-                            <div class="info-label">Creation Date:</div>
-                            <div class="info-value">{{ $requestDetails->created_at->format('d/m/Y') }}</div>
+                            <span class="info-label">Created on:</span>
+                            <span class="info-value">{{ $requestDetails->created_at ? $requestDetails->created_at->format('d/m/Y') : 'Not set' }}</span>
                         </div>
                         @if ($requestDetails->dateech)
                         <div class="info-row">
                             <div class="info-label">Deadline:</div>
-                            <div class="info-value">{{ $requestDetails->due_date }}</div>
+                            <div class="info-value">{{ $requestDetails->due_date ? $requestDetails->due_date->format('d/m/Y') : 'Not set' }}</div>
                         </div>
                         @endif
                         <div class="info-row">
-                            <div class="info-label">End Date:</div>
-                            <div class="info-value">{{ $requestDetails->due_date->format('d/m/Y') }}</div>
+                            <span class="info-label">Completed on:</span>
+                            <span class="info-value">{{ $requestDetails->completed_at ? $requestDetails->completed_at->format('d/m/Y') : 'Not set' }}</span>
                         </div>
                         <div class="info-row">
                             <div class="info-label">Status:</div>

@@ -121,14 +121,14 @@
                                     <span class="detail-icon">
                                         <i class="fas fa-calendar"></i>
                                     </span>
-                                    Created on: {{ $demand->created_at->format('d/m/Y') }}
+                                    Created on: {{ $demand->created_at ? $demand->created_at->format('d/m/Y') : 'Not set' }}
                                 </div>
                                 @if ($demand->status === 'Completed')
                                     <div class="detail">
                                         <span class="detail-icon">
                                             <i class="fas fa-check"></i>
                                         </span>
-                                        Completed on: {{ $demand->updated_at->format('d/m/Y') }}
+                                        Completed on: {{ $demand->completed_at ? $demand->completed_at->format('d/m/Y') : 'Not set' }}
                                     </div>
                                 @else
                                     <div class="detail">

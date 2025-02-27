@@ -36,7 +36,6 @@ class FormData extends Model
         'elementaryFunction',
         'numberLinesNbe',
         'technicalPost',
-        'file_client',
         'assigned_to',
         'due_date',
         'description',
@@ -46,8 +45,15 @@ class FormData extends Model
     protected $dates = [
         'created_at',
         'updated_at',
-        'due_date',
-        'dateech'
+        'completed_at',
+        'due_date'
+    ];
+
+    protected $casts = [
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+        'completed_at' => 'datetime',
+        'due_date' => 'datetime',
     ];
 
     public function assignedAgent()
