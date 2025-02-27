@@ -243,11 +243,11 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="status">Status</label>
+                            <label for="status">{{ __('details.status') }}</label>
                             <select name="status" id="status" class="status-select" required onchange="updateStatusStyle(this)">
-                                <option value="New" {{ $requestDetails->status == 'New' ? 'selected' : '' }}>New</option>
-                                <option value="In Progress" {{ $requestDetails->status == 'In Progress' ? 'selected' : '' }}>In Progress</option>
-                                <option value="Completed" {{ $requestDetails->status == 'Completed' ? 'selected' : '' }}>Completed</option>
+                                <option value="New" {{ $requestDetails->status == 'New' ? 'selected' : '' }}>{{ __('app.new') }}</option>
+                                <option value="In Progress" {{ $requestDetails->status == 'In Progress' ? 'selected' : '' }}>{{ __('app.in_progress') }}</option>
+                                <option value="Completed" {{ $requestDetails->status == 'Completed' ? 'selected' : '' }}>{{ __('app.completed') }}</option>
                             </select>
                         </div>
                     </div>

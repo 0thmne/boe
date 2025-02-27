@@ -41,4 +41,7 @@ return [
     // File Section
     'download' => 'Télécharger',
     'not_set' => 'Non défini',
+
+    'assigned_to' => 'Assigné à',
+    'not_assigned' => 'Non assigné',
 ]; 

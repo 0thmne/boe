@@ -41,4 +41,8 @@ return [
     // File Section
     'download' => 'Download',
     'not_set' => 'Not set',
+    
+    // Assignment Fields
+    'assigned_to' => 'Assigned to',
+    'not_assigned' => 'Not assigned',
 ]; 

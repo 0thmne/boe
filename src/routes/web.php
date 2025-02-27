@@ -39,3 +39,11 @@ Route::post('/change-language', function (Request $request) {
     }
     return redirect()->back();
 })->name('change-language');
+
+// Language switcher route
+Route::get('locale/{locale}', function ($locale) {
+    if (in_array($locale, ['en', 'fr'])) {
+        session()->put('locale', $locale);
+    }
+    return redirect()->back();
+});

@@ -10,6 +10,7 @@ return [
     'new' => 'New',
     'in_progress' => 'In Progress',
     'completed' => 'Completed',
+    'rejected' => 'Rejected',
     'all_status' => 'All Status',
     
     // Request Types
@@ -78,4 +79,5 @@ return [
     // Additional translations
     'requests' => 'Requests',
     'all_requests' => 'All Requests',
+    'request_form' => 'Request Form',
 ]; 

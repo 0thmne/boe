@@ -21,9 +21,25 @@
         <div class="detail-card">
             <div class="detail-header">
                 <h1 class="detail-title">{{ __('details.request_details') }}</h1>
-                <p class="detail-subtitle">{{ $requestDetails->uuid }}</p>
-                <span class="status-badge status-{{ strtolower(str_replace(' ', '-', $requestDetails->status)) }}">{{ $requestDetails->status }}</span>
+                <span class="status-badge status-{{ strtolower(str_replace(' ', '-', $requestDetails->status)) }}">
+                    @if($requestDetails->status == 'In Progress')
+                        {{ __('app.in_progress') }}
+                    @else
+                        {{ __('app.' . strtolower($requestDetails->status)) }}
+                    @endif
+                </span>
+                <div class="assigned-to">
+                    <span class="info-label">{{ __('details.assigned_to') }}:</span>
+                    <span class="info-value">
+                        @if($requestDetails->assigned_to && $requestDetails->assignedAgent)
+                            {{ $requestDetails->assignedAgent->surname }} {{ $requestDetails->assignedAgent->name }}
+                        @else
+                            {{ __('details.not_assigned') }}
+                        @endif
+                    </span>
+                </div>
             </div>
+            
             <div class="detail-body">
                 <div class="info-grid">
                     <div class="info-section">
@@ -33,17 +49,17 @@
                             <div class="info-label">{{ __('details.type') }}:</div>
                             <div class="info-value">
                                 @if ($requestDetails->type === 'codification')
-                                Codification
+                                    {{ __('app.codification') }}
                                 @elseif ($requestDetails->type === 'processing')
-                                Nomenclature Processing
+                                    {{ __('app.processing') }}
                                 @elseif ($requestDetails->type === 'loading')
-                                Nomenclature Loading
-                                @elseif ($requestDetails->type === 'fiches')
-                                Stamping Sheets
+                                    {{ __('app.loading') }}
+                                @elseif ($requestDetails->type === 'sheets')
+                                    {{ __('app.sheets') }}
                                 @elseif ($requestDetails->type === 'nbe')
-                                Equipment Number
+                                    {{ __('app.nbe') }}
                                 @elseif ($requestDetails->type === 'documentation')
-                                Documentation Loading in Compass
+                                    {{ __('app.documentation') }}
                                 @endif
                             </div>
                         </div>
@@ -64,7 +80,13 @@
                         </div>
                         <div class="info-row">
                             <div class="info-label">{{ __('details.status') }}:</div>
-                            <div class="info-value">{{ __('app.' . strtolower($requestDetails->status)) }}</div>
+                            <div class="info-value">
+                                @if($requestDetails->status == 'In Progress')
+                                    {{ __('app.in_progress') }}
+                                @else
+                                    {{ __('app.' . strtolower($requestDetails->status)) }}
+                                @endif
+                            </div>
                         </div>
                         @if ($requestDetails->numberArticles)
                         <div class="info-row">
@@ -232,7 +254,7 @@
 
                         <div class="info-row">
                             <div class="info-label">{{ __('details.id') }}:</div>
-                            <div class="info-value">{{ $requestDetails->id }}</div>
+                            <div class="info-value">{{ $requestDetails->uuid }}</div>
                         </div>
 
 

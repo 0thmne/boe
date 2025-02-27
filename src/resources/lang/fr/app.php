@@ -10,6 +10,7 @@ return [
     'new' => 'Nouveau',
     'in_progress' => 'En cours',
     'completed' => 'Terminé',
+    'rejected' => 'Rejeté',
     'all_status' => 'Tous les statuts',
     
     // Request Types
