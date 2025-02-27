@@ -356,3 +356,7 @@ body {
 textarea.form-control {
     min-height: 100px;
 }
+
+.info-label::after {
+    content: ':';
+}
