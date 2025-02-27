@@ -52,3 +52,7 @@ Route::get('locale/{locale}', function ($locale) {
     }
     return redirect()->back();
 });
+
+Route::get('/login', function () {
+    return view('login');
+});
