@@ -31,6 +31,7 @@ Route::get('/', function () {
 Route::get('/demande', [FormController::class, 'showForm']);
 Route::post('/request', [FormController::class, 'submitForm']);
 Route::get('admin/demande/details/{uuid}', [FormController::class, 'showDetails']); 
+Route::get('/followup/{uuid}', [FormController::class, 'showFollowup'])->name('followup');
 
 // Admin Routes
 Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {

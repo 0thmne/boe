@@ -152,4 +152,11 @@ class FormController extends Controller
         $requestDetails = FormData::where('uuid', $uuid)->firstOrFail();
         return view('admin.details', compact('requestDetails'));
     }
+
+    public function showFollowup($uuid)
+    {
+        $requestDetails = FormData::where('uuid', $uuid)->firstOrFail();
+        \Log::debug('Request Details:', $requestDetails->toArray());
+        return view('followup', compact('requestDetails'));
+    }
 }

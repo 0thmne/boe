@@ -1,0 +1,302 @@
+:root {
+    --primary-color: #1d2d6f;
+    --secondary-color: #4267b2;
+    --in-progress-color: #f57c00;
+    --completed-color: #2e7d32;
+    --new-color: #2196f3;
+    --background-color: #f5f7fa;
+    --header-color: #1d2d6f;
+    --border-color: #e1e4e8;
+    --text-color: #24292e;
+    --light-text: #7f8c8d;
+    --card-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    --hover-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    --transition-speed: 0.2s;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--background-color);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.success-message {
+    background-color: var(--completed-color);
+    color: white;
+    text-align: center;
+    padding: 15px;
+    font-size: 18px;
+    font-weight: bold;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    transform: translateY(-100%);
+    animation: slideDown 0.5s forwards, fadeOut 0.5s 4.5s forwards;
+}
+
+@keyframes slideDown {
+    to {
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeOut {
+    to {
+        opacity: 0;
+    }
+}
+
+.main-content {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+.content {
+    flex: 1;
+}
+
+/* Card Layout */
+.card-container {
+    max-width: 600px;
+    margin: 0 auto 20px auto;
+}
+
+.card {
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: var(--card-shadow);
+    position: relative;
+    transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+    margin-bottom: 20px;
+    width: 100%;
+    max-width: 800px;
+    height: auto;
+    padding: 20px;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--hover-shadow);
+}
+
+.card.new {
+    border-left: 4px solid var(--new-color);
+}
+
+.card.completed {
+    border-left: 4px solid var(--completed-color);
+}
+
+.card.in-progress {
+    border-left: 4px solid var(--in-progress-color);
+}
+
+.card-header {
+    padding: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #f1f1f1;
+}
+
+.client {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.client-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.client-flow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.person-name {
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--text-color);
+}
+
+.request-id {
+    font-size: 13px;
+    color: var(--light-text);
+    margin-top: 2px;
+}
+
+.assigned-person {
+    font-size: 13px;
+    color: var(--light-text);
+    margin-top: 4px;
+}
+
+.request-id-below-badge {
+    position: absolute;
+    top: 42px;
+    right: 16px;
+    font-size: 12px;
+    color: var(--light-text);
+    text-align: right;
+}
+
+.client-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: var(--secondary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 16px;
+}
+
+.card-body {
+    padding: 16px;
+}
+
+.request-details h3 {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--light-text);
+    margin-bottom: 12px;
+    margin-top: 0;
+}
+
+.detail {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: var(--text-color);
+}
+
+.detail-icon {
+    margin-right: 8px;
+    opacity: 0.6;
+    width: 16px;
+    text-align: center;
+    color: var(--light-text);
+}
+
+.status-badge {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.status-badge.new {
+    background-color: rgba(33, 150, 243, 0.1);
+    color: var(--new-color);
+}
+
+.status-badge.completed {
+    background-color: rgba(46, 125, 50, 0.1);
+    color: var(--completed-color);
+}
+
+.status-badge.in-progress {
+    background-color: rgba(245, 124, 0, 0.1);
+    color: var(--in-progress-color);
+}
+
+/* File download section */
+.file-download-section {
+    background-color: #f9fafb;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-top: 0.5rem;
+    border: 1px solid var(--border-color);
+    display: none;
+    /* Hidden by default */
+}
+
+.file-download-title {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-bottom: 1px solid #eee;
+}
+
+.file-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem;
+    background-color: white;
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+    border: 1px solid var(--border-color);
+}
+
+.file-info {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.file-icon {
+    font-size: 1.25rem;
+    color: var(--primary-color);
+}
+
+.file-name {
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.download-btn {
+    padding: 0.5rem 1rem;
+    background-color: var(--completed-color);
+    color: white;
+    border-radius: 4px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: background-color 0.2s;
+    font-size: 0.9rem;
+}
+
+.download-btn:hover {
+    background-color: #1b5e20;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .client-flow {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+}
+
+.h1 {
+    align-items: center;
+    text-align: center;
+    color: #1d2d6f;
+}
