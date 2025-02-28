@@ -12,7 +12,7 @@
 </head>
 
 <body>
-    @include('components.header-admin')
+    <!-- @include('components.header-admin') -->
 
     <div class="container">
         @if(session('success'))

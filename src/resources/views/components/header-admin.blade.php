@@ -1,19 +1,43 @@
-<header class="header">
-    <div class="logo">
-        <i class="fas fa-tasks"></i> {{ __('app.pilot_interface') }}
-    </div>
-    <div class="header-actions">
-        <a href="{{ route('add-agent.form') }}" class="add-agent-btn" title="{{ __('Add New Agent') }}">
-            <i class="fas fa-user-plus"></i>
-        </a>
-        <div class="user-profile">
-            <div class="user-avatar">
-                <i class="fas fa-user"></i>
+<?php
+use Illuminate\Support\Facades\Auth;
+$isAdmin = Auth::check() && Auth::user()->role === 'admin';
+?>
+<header class="admin-header">
+    <div class="admin-header-container">
+        <div class="admin-logo">
+            <i class="fas fa-tasks"></i> {{ __('app.pilot_interface') }}
+        </div>
+        <div class="admin-header-actions">
+            @if($isAdmin)
+            <a href="{{ route('add-agent.form') }}" class="admin-add-btn" title="{{ __('Add New Agent') }}">
+                <i class="fas fa-user-plus"></i>
+            </a>
+            @endif
+            <div class="admin-user-profile">
+                <div class="admin-user-avatar">
+                    @if(Auth::check())
+                        @if(Auth::user()->role === 'admin')
+                            <i class="fas fa-user-shield" title="{{ __('app.admin') }}"></i>
+                        @else
+                            <i class="fas fa-user-tie" title="{{ __('app.agent') }}"></i>
+                        @endif
+                    @else
+                        <i class="fas fa-user"></i>
+                    @endif
+                </div>
+                @if(Auth::user())
+                    <span>{{ Auth::user()->name }}</span>
+                @else
+                    <span>{{ __('app.guest') }}</span>
+                @endif
             </div>
-            @if(Auth::user())
-                <span>{{ Auth::user()->name }}</span>
-            @else
-                <span>{{ __('app.guest') }}</span>
+            @if(Auth::check())
+                <form action="{{ route('logout') }}" method="POST" class="admin-logout-form">
+                    @csrf
+                    <button type="submit" class="admin-logout-btn" title="{{ __('app.logout') }}">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </button>
+                </form>
             @endif
         </div>
     </div>
@@ -43,28 +67,115 @@ function changeLanguage(lang) {
 </script>
 
 <style>
-    .header-actions {
-        display: flex;
-        align-items: center;
-        gap: 1.5rem;
+    :root {
+        --primary-color: #243782;
+        --secondary-color: #1d2d6f;
+        --background-color: #f5f7fa;
+        --border-color: #e1e4e8;
+        --text-color: #24292e;
+        --hover-color: #f6f8fa;
     }
 
-    .add-agent-btn {
-        color: white;
-        font-size: 1.2rem;
-        padding: 0.5rem;
+    .admin-header {
+        background-color: white !important;
+        color: var(--text-color) !important;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+    }
+
+    .admin-header-container {
+        max-width: 100% !important;
+        padding: 1rem 2rem !important;
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+    }
+
+    .admin-logo {
+        color: var(--primary-color) !important;
+        font-size: 1.5rem !important;
+        font-weight: bold !important;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .admin-logo i {
+        color: var(--primary-color) !important;
+    }
+
+    .admin-user-profile {
+        color: var(--text-color) !important;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .admin-user-profile span {
+        font-weight: 600 !important;
+        color: var(--text-color) !important;
+    }
+
+    .admin-user-avatar {
+        background-color: var(--primary-color) !important;
+        width: 40px;
+        height: 40px;
         border-radius: 50%;
-        background-color: rgba(255, 255, 255, 0.1);
-        transition: background-color 0.3s ease;
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 40px;
-        height: 40px;
-        text-decoration: none;
+        color: white !important;
     }
 
-    .add-agent-btn:hover {
-        background-color: rgba(255, 255, 255, 0.2);
+    .admin-header-actions {
+        display: flex !important;
+        align-items: center !important;
+        gap: 1.5rem !important;
+    }
+
+    .admin-add-btn {
+        color: white !important;
+        font-size: 1.2rem !important;
+        padding: 0.5rem !important;
+        border-radius: 50% !important;
+        background-color: var(--primary-color) !important;
+        transition: background-color 0.3s ease !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        width: 40px !important;
+        height: 40px !important;
+        text-decoration: none !important;
+    }
+
+    .admin-add-btn:hover {
+        background-color: var(--secondary-color) !important;
+    }
+
+    .admin-logout-form {
+        margin: 0;
+        padding: 0;
+        line-height: 0;
+    }
+
+    .admin-logout-btn {
+        color: white !important;
+        font-size: 1.2rem !important;
+        padding: 0 !important;
+        border-radius: 50% !important;
+        background-color: var(--primary-color) !important;
+        border: none !important;
+        cursor: pointer !important;
+        transition: background-color 0.3s ease !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        width: 40px !important;
+        height: 40px !important;
+        margin: 0 !important;
+        line-height: 1 !important;
+    }
+
+    .admin-logout-btn:hover {
+        background-color: var(--secondary-color) !important;
     }
 </style>

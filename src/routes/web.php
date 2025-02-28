@@ -47,6 +47,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 // Agent Routes
 Route::middleware(['auth', 'agent'])->prefix('agent')->group(function () {
     Route::get('/requests', [AgentController::class, 'index'])->name('agent.requests');
+    Route::get('/requests/{uuid}', [AgentController::class, 'show'])->name('agent.requests.show');
     Route::post('/requests/{id}/update', [AgentController::class, 'updateRequest'])->name('agent.requests.update');
 });
 

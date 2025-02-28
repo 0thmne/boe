@@ -120,4 +120,13 @@ class AgentController extends Controller
             'message' => 'Request updated successfully'
         ]);
     }
+
+    public function show($uuid)
+    {
+        $request = FormData::where('uuid', $uuid)->firstOrFail();
+        return view('agent.details', [
+            'requestDetails' => $request,
+            'agent' => Auth::user()
+        ]);
+    }
 } 
