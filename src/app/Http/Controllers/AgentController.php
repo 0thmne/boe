@@ -73,31 +73,47 @@ class AgentController extends Controller
         ]);
     }
 
+    public function markAsCompleted($uuid)
+    {
+        $request = FormData::where('uuid', $uuid)
+            ->where('assigned_to', Auth::id())
+            ->firstOrFail();
+
+        $request->status = 'Completed';
+        $request->completed_at = now();
+        $request->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Request marked as completed successfully'
+        ]);
+    }
+
     public function updateRequest(Request $request, $uuid)
     {
         $validatedData = $request->validate([
             'comment' => 'nullable|string',
-            'status' => 'required|boolean',
+            'status' => 'required|string|in:New,In Progress,Completed',
             'files.*' => 'nullable|file|mimes:pdf,doc,docx,xls,xlsx,jpg,jpeg,png'
         ]);
 
-        // Get the test agent
-        $agent = User::where('role', 'agent')
-            ->where('email', 'othmane.ait-salah@capgemini.com')
-            ->firstOrFail();
-
         $formData = FormData::where('uuid', $uuid)
-            ->where('assigned_to', $agent->id)
+            ->where('assigned_to', Auth::id())
             ->firstOrFail();
 
-        // Update the request status if marked as completed
-        if ($validatedData['status']) {
-            $formData->status = 'Completed';
+        // Update the request status
+        $formData->status = $validatedData['status'];
+        if ($validatedData['status'] === 'Completed') {
+            $formData->due_date = now();
         }
 
         // Add comment if provided
         if (!empty($validatedData['comment'])) {
-            $formData->comments = $formData->comments . "\n" . now() . " - " . $agent->name . ": " . $validatedData['comment'];
+            $currentTime = now()->format('Y-m-d H:i:s');
+            $newComment = "$currentTime - " . Auth::user()->name . ": " . $validatedData['comment'];
+            $formData->comments = $formData->comments 
+                ? $formData->comments . "\n" . $newComment 
+                : $newComment;
         }
 
         // Handle file uploads
@@ -115,10 +131,8 @@ class AgentController extends Controller
 
         $formData->save();
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Request updated successfully'
-        ]);
+        // Redirect to /agent/requests with a success message
+        return redirect()->route('agent.requests')->with('success', __('app.request_updated_successfully'));
     }
 
     public function show($uuid)

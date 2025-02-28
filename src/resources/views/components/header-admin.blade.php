@@ -8,6 +8,12 @@ $isAdmin = Auth::check() && Auth::user()->role === 'admin';
             <i class="fas fa-tasks"></i> {{ __('app.pilot_interface') }}
         </div>
         <div class="admin-header-actions">
+            <div class="language-selector">
+                <select onchange="changeLanguage(this.value)" class="lang-select">
+                    <option value="en" {{ app()->getLocale() == 'en' ? 'selected' : '' }}>English</option>
+                    <option value="fr" {{ app()->getLocale() == 'fr' ? 'selected' : '' }}>Français</option>
+                </select>
+            </div>
             @if($isAdmin)
             <a href="{{ route('add-agent.form') }}" class="admin-add-btn" title="{{ __('Add New Agent') }}">
                 <i class="fas fa-user-plus"></i>
@@ -177,5 +183,31 @@ function changeLanguage(lang) {
 
     .admin-logout-btn:hover {
         background-color: var(--secondary-color) !important;
+    }
+
+    .language-selector {
+        display: flex !important;
+        align-items: center !important;
+    }
+
+    .lang-select {
+        padding: 0.5rem !important;
+        border: 1px solid var(--border-color) !important;
+        border-radius: 4px !important;
+        background-color: white !important;
+        color: var(--text-color) !important;
+        font-size: 0.9rem !important;
+        cursor: pointer !important;
+        transition: border-color 0.3s ease !important;
+    }
+
+    .lang-select:hover {
+        border-color: var(--primary-color) !important;
+    }
+
+    .lang-select:focus {
+        outline: none !important;
+        border-color: var(--primary-color) !important;
+        box-shadow: 0 0 0 2px rgba(36, 55, 130, 0.2) !important;
     }
 </style>
