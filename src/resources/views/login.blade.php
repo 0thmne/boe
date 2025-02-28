@@ -14,14 +14,19 @@
 
 <body>
     <div class="container">
-        <form id="loginForm" novalidate>
-            <a href="./index.html">
-                <h2>Login</h2>
-            </a>
+        <form method="POST" action="{{ route('login.authenticate') }}" novalidate>
+            @csrf
+            <h2>Login</h2>
+
+            @if(session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+            @endif
 
             <div class="form-group">
-                <label for="username" class="required">Username</label>
-                <input type="text" id="username" name="username" required>
+                <label for="email" class="required">Email</label>
+                <input type="email" id="email" name="email" required>
             </div>
 
             <div class="form-group">
@@ -29,14 +34,11 @@
                 <input type="password" id="password" name="password" required>
             </div>
 
-
             <div class="button-wrapper">
                 <button type="submit" class="submit-button">Login</button>
             </div>
         </form>
     </div>
-
-    
 </body>
 
 </html>

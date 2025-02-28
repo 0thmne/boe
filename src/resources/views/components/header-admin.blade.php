@@ -1,21 +1,20 @@
 <header class="header">
     <div class="logo">
-        <i class="fas fa-plane"></i>
-        <span>{{ __('app.pilot_interface') }}</span>
+        <i class="fas fa-tasks"></i> {{ __('app.pilot_interface') }}
     </div>
-    
-    <div class="header-right">
-        <div class="language-selector">
-            <select id="languageSelect" onchange="changeLanguage(this.value)">
-                <option value="en" {{ app()->getLocale() == 'en' ? 'selected' : '' }}>English</option>
-                <option value="fr" {{ app()->getLocale() == 'fr' ? 'selected' : '' }}>Français</option>
-            </select>
-        </div>
+    <div class="header-actions">
+        <a href="{{ route('add-agent.form') }}" class="add-agent-btn" title="{{ __('Add New Agent') }}">
+            <i class="fas fa-user-plus"></i>
+        </a>
         <div class="user-profile">
             <div class="user-avatar">
                 <i class="fas fa-user"></i>
             </div>
-            <span>Admin</span>
+            @if(Auth::user())
+                <span>{{ Auth::user()->name }}</span>
+            @else
+                <span>{{ __('app.guest') }}</span>
+            @endif
         </div>
     </div>
 </header>
@@ -42,3 +41,30 @@ function changeLanguage(lang) {
     form.submit();
 }
 </script>
+
+<style>
+    .header-actions {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+    }
+
+    .add-agent-btn {
+        color: white;
+        font-size: 1.2rem;
+        padding: 0.5rem;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255, 0.1);
+        transition: background-color 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        text-decoration: none;
+    }
+
+    .add-agent-btn:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+    }
+</style>

@@ -7,6 +7,8 @@ use App\Models\FormData;
 use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Hash;
+use App\Models\Agent;
 
 class AdminController extends Controller
 {
@@ -52,24 +54,21 @@ class AdminController extends Controller
 
     public function storeAgent(Request $request)
     {
-        $validatedData = $request->validate([
-            'name' => 'required|string',
-            'surname' => 'required|string',
-            'email' => 'required|string|email|unique:users,email',
-            'password' => 'required|string|confirmed',
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'surname' => 'required|string|max:255',
+            'email' => 'required|email|unique:agents,email',
+            'password' => 'required|min:8',
         ]);
 
-        User::create([
-            'uuid' => (string) Str::uuid(), // Generate a unique UUID
-            'name' => $validatedData['name'],
-            'surname' => $validatedData['surname'],
-            'site' => '', // Keep site empty
-            'email' => $validatedData['email'],
-            'password' => bcrypt($validatedData['password']),
-            'role' => 'agent', // Set role to agent
-        ]);
+        $agent = new Agent();
+        $agent->name = $validated['name'];
+        $agent->surname = $validated['surname'];
+        $agent->email = $validated['email'];
+        $agent->password = Hash::make($validated['password']);
+        $agent->save();
 
-        return redirect()->back()->with('success', 'Agent added successfully!');
+        return redirect()->route('admin.index')->with('success', 'Agent created successfully');
     }
 
     public function showEditForm($uuid)
@@ -168,5 +167,16 @@ class AdminController extends Controller
         $request->delete();
         
         return redirect()->route('admin.index')->with('success', 'Request deleted successfully');
+    }
+
+    public function details($uuid)
+    {
+        $requestDetails = Request::where('uuid', $uuid)->first();
+        return view('admin.details', compact('requestDetails'));
+    }
+
+    public function createAgent()
+    {
+        return view('admin.agents.create');
     }
 }

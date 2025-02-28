@@ -6,12 +6,12 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class AgentMiddleware
+class AdminMiddleware
 {
     public function handle(Request $request, Closure $next)
     {
-        if (!Auth::check() || Auth::user()->role !== 'agent') {
-            return redirect('/login')->with('error', 'Access denied. Agent privileges required.');
+        if (!Auth::check() || Auth::user()->role !== 'admin') {
+            return redirect('/login')->with('error', 'Access denied. Admin privileges required.');
         }
 
         return $next($request);

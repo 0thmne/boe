@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FormController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AgentController;
+use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 
 /*
@@ -17,6 +18,12 @@ use Illuminate\Http\Request;
 |
 */
 
+// Authentication Routes
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [AuthController::class, 'authenticate'])->name('login.authenticate');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+// Public Routes
 Route::get('/', function () {
     return view('welcome');
 });
@@ -24,18 +31,26 @@ Route::get('/', function () {
 Route::get('/demande', [FormController::class, 'showForm']);
 Route::post('/request', [FormController::class, 'submitForm']);
 Route::get('admin/demande/details/{uuid}', [FormController::class, 'showDetails']); 
-Route::get('/admin/demandes', [AdminController::class, 'index'])->name('admin.index');
-Route::get('/admin', [AdminController::class, 'index']);
-Route::get('admin/add-agent', [AdminController::class, 'showAddAgentForm'])->name('add-agent.form');
-Route::post('admin/add-agent', [AdminController::class, 'storeAgent'])->name('add-agent.store');
-Route::get('admin/demande/edit/{uuid}', [AdminController::class, 'showEditForm'])->name('edit.form');
-Route::put('admin/demande/edit/{uuid}', [AdminController::class, 'updateRequest'])->name('edit.update');
-Route::delete('admin/demande/delete/{uuid}', [AdminController::class, 'deleteRequest'])->name('admin.delete');
 
-// Agent routes
-Route::get('/agent/requests', [AgentController::class, 'index'])->name('agent.requests');
-Route::post('/agent/requests/{uuid}/update', [AgentController::class, 'updateRequest'])->name('agent.update');
+// Admin Routes
+Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
+    Route::get('/', [AdminController::class, 'index'])->name('admin.index');
+    Route::get('/demandes', [AdminController::class, 'index'])->name('admin.index');
+    Route::get('/demande/details/{uuid}', [FormController::class, 'showDetails']);
+    Route::get('/add-agent', [AdminController::class, 'showAddAgentForm'])->name('add-agent.form');
+    Route::post('/add-agent', [AdminController::class, 'storeAgent'])->name('add-agent.store');
+    Route::get('/demande/edit/{uuid}', [AdminController::class, 'showEditForm'])->name('edit.form');
+    Route::put('/demande/edit/{uuid}', [AdminController::class, 'updateRequest'])->name('edit.update');
+    Route::delete('/demande/delete/{uuid}', [AdminController::class, 'deleteRequest'])->name('admin.delete');
+});
 
+// Agent Routes
+Route::middleware(['auth', 'agent'])->prefix('agent')->group(function () {
+    Route::get('/requests', [AgentController::class, 'index'])->name('agent.requests');
+    Route::post('/requests/{id}/update', [AgentController::class, 'updateRequest'])->name('agent.requests.update');
+});
+
+// Language Routes
 Route::post('/change-language', function (Request $request) {
     $language = $request->input('language');
     if (in_array($language, ['en', 'fr'])) {
@@ -45,14 +60,9 @@ Route::post('/change-language', function (Request $request) {
     return redirect()->back();
 })->name('change-language');
 
-// Language switcher route
 Route::get('locale/{locale}', function ($locale) {
     if (in_array($locale, ['en', 'fr'])) {
         session()->put('locale', $locale);
     }
     return redirect()->back();
-});
-
-Route::get('/login', function () {
-    return view('login');
 });
