@@ -1,5 +1,7 @@
 <?php
+
 use Illuminate\Support\Facades\Auth;
+
 $isAdmin = Auth::check() && Auth::user()->role === 'admin';
 ?>
 <header class="admin-header">
@@ -12,6 +14,9 @@ $isAdmin = Auth::check() && Auth::user()->role === 'admin';
                 <select onchange="changeLanguage(this.value)" class="lang-select">
                     <option value="en" {{ app()->getLocale() == 'en' ? 'selected' : '' }}>English</option>
                     <option value="fr" {{ app()->getLocale() == 'fr' ? 'selected' : '' }}>Français</option>
+                    <option value="it" {{ app()->getLocale() == 'it' ? 'selected' : '' }}>Italiano</option>
+                    <option value="ar" {{ app()->getLocale() == 'ar' ? 'selected' : '' }}>العربية</option>
+                    <option value="hi" {{ app()->getLocale() == 'hi' ? 'selected' : '' }}>हिंदी</option>
                 </select>
             </div>
             @if($isAdmin)
@@ -22,54 +27,54 @@ $isAdmin = Auth::check() && Auth::user()->role === 'admin';
             <div class="admin-user-profile">
                 <div class="admin-user-avatar">
                     @if(Auth::check())
-                        @if(Auth::user()->role === 'admin')
-                            <i class="fas fa-user-shield" title="{{ __('app.admin') }}"></i>
-                        @else
-                            <i class="fas fa-user-tie" title="{{ __('app.agent') }}"></i>
-                        @endif
+                    @if(Auth::user()->role === 'admin')
+                    <i class="fas fa-user-shield" title="{{ __('app.admin') }}"></i>
                     @else
-                        <i class="fas fa-user"></i>
+                    <i class="fas fa-user-tie" title="{{ __('app.agent') }}"></i>
+                    @endif
+                    @else
+                    <i class="fas fa-user"></i>
                     @endif
                 </div>
                 @if(Auth::user())
-                    <span>{{ Auth::user()->name }}</span>
+                <span>{{ Auth::user()->name }}</span>
                 @else
-                    <span>{{ __('app.guest') }}</span>
+                <span>{{ __('app.guest') }}</span>
                 @endif
             </div>
             @if(Auth::check())
-                <form action="{{ route('logout') }}" method="POST" class="admin-logout-form">
-                    @csrf
-                    <button type="submit" class="admin-logout-btn" title="{{ __('app.logout') }}">
-                        <i class="fas fa-sign-out-alt"></i>
-                    </button>
-                </form>
+            <form action="{{ route('logout') }}" method="POST" class="admin-logout-form">
+                @csrf
+                <button type="submit" class="admin-logout-btn" title="{{ __('app.logout') }}">
+                    <i class="fas fa-sign-out-alt"></i>
+                </button>
+            </form>
             @endif
         </div>
     </div>
 </header>
 
 <script>
-function changeLanguage(lang) {
-    let form = document.createElement('form');
-    form.method = 'POST';
-    form.action = '/change-language';
-    
-    let csrfToken = document.createElement('input');
-    csrfToken.type = 'hidden';
-    csrfToken.name = '_token';
-    csrfToken.value = '{{ csrf_token() }}';
-    form.appendChild(csrfToken);
-    
-    let langInput = document.createElement('input');
-    langInput.type = 'hidden';
-    langInput.name = 'language';
-    langInput.value = lang;
-    form.appendChild(langInput);
-    
-    document.body.appendChild(form);
-    form.submit();
-}
+    function changeLanguage(lang) {
+        let form = document.createElement('form');
+        form.method = 'POST';
+        form.action = '/change-language';
+
+        let csrfToken = document.createElement('input');
+        csrfToken.type = 'hidden';
+        csrfToken.name = '_token';
+        csrfToken.value = '{{ csrf_token() }}';
+        form.appendChild(csrfToken);
+
+        let langInput = document.createElement('input');
+        langInput.type = 'hidden';
+        langInput.name = 'language';
+        langInput.value = lang;
+        form.appendChild(langInput);
+
+        document.body.appendChild(form);
+        form.submit();
+    }
 </script>
 
 <style>

@@ -55,7 +55,7 @@ Route::middleware(['auth', 'agent'])->prefix('agent')->group(function () {
 // Language Routes
 Route::post('/change-language', function (Request $request) {
     $language = $request->input('language');
-    if (in_array($language, ['en', 'fr'])) {
+    if (in_array($language, ['en', 'fr', 'it', 'ar', 'hi'])) {
         session(['locale' => $language]);
         app()->setLocale($language);
     }
@@ -63,7 +63,7 @@ Route::post('/change-language', function (Request $request) {
 })->name('change-language');
 
 Route::get('locale/{locale}', function ($locale) {
-    if (in_array($locale, ['en', 'fr'])) {
+    if (in_array($locale, ['en', 'fr', 'it', 'ar', 'hi'])) {
         session()->put('locale', $locale);
     }
     return redirect()->back();
